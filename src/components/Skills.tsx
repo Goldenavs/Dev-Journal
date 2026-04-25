@@ -1,26 +1,59 @@
-// src/components/Skills.tsx (Use similar structure for Achievements, Others, Contact)
-import { motion } from 'framer-motion';
+// src/components/Skills.tsx
+import { motion, type Variants } from 'framer-motion';
 
 const Skills = () => {
+  const container: Variants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+
+  const item: Variants = {
+    hidden: { opacity: 0, y: 30, scale: 0.9 },
+    show: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", bounce: 0.4 } }
+  };
+
+  const skillsList = [
+    "React & Next.js", "TypeScript", "Node & Express", "PostgreSQL",
+    "AWS & Docker", "GraphQL", "Framer Motion", "Tailwind CSS"
+  ];
+
   return (
-    <section className="min-h-screen flex items-center justify-center py-20 px-6">
-      <motion.div 
-        initial={{ opacity: 0, y: 100 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, margin: "-100px" }} // Triggers slightly before it hits center
-        transition={{ duration: 0.8 }}
-        className="w-full max-w-5xl"
-      >
-        <h2 className="text-6xl font-bold uppercase mb-12 border-b border-neutral-800 pb-4">System Arsenal</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-           {/* Skeleton Skill Boxes */}
-           {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-             <div key={i} className="h-32 bg-neutral-900 border border-neutral-800 rounded-xl flex items-center justify-center">
-               <span className="text-neutral-500 font-mono">Skill {i}</span>
-             </div>
+    <section className="min-h-screen flex flex-col justify-center py-32 px-6 bg-[#0a0a0a]">
+      <div className="w-full max-w-6xl mx-auto">
+        <motion.h2 
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: false, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-5xl md:text-8xl font-black uppercase mb-16 text-transparent bg-clip-text bg-gradient-to-r from-white to-neutral-600"
+        >
+          System <span className="text-orange-500">Arsenal</span>
+        </motion.h2>
+
+        <motion.div 
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: false, margin: "-100px" }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-6"
+        >
+           {skillsList.map((skill, i) => (
+             <motion.div 
+               key={i} 
+               variants={item}
+               whileHover={{ scale: 1.05, y: -5 }}
+               className="h-32 md:h-40 bg-neutral-900 border border-white/5 rounded-2xl flex items-center justify-center group hover:border-orange-500 hover:shadow-[0_0_40px_rgba(249,115,22,0.2)] transition-all duration-300 cursor-default"
+             >
+               <span className="text-neutral-400 font-bold tracking-wide text-sm md:text-lg group-hover:text-orange-400 transition-colors duration-300">
+                 {skill}
+               </span>
+             </motion.div>
            ))}
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
 };
