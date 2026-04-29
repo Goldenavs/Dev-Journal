@@ -51,7 +51,7 @@ const Hero = () => {
           className="flex items-center gap-4 mb-6 cursor-default group"
         >
           <div className="w-8 md:w-12 h-[2px] bg-orange-500 group-hover:bg-orange-400 transition-colors duration-500" />
-          <span className="text-sm md:text-base font-bold uppercase tracking-[0.3em] text-neutral-400 group-hover:text-orange-500 transition-colors duration-500 z-1">
+          <span className="font-orbitron text-sm md:text-base font-bold uppercase tracking-[0.3em] text-neutral-400 group-hover:text-orange-500 transition-colors duration-500 z-1">
             John Michael A. Nave
           </span>
           <div className="w-8 md:w-12 h-[2px] bg-orange-500 group-hover:bg-orange-400 transition-colors duration-500 hidden md:block" />
@@ -72,11 +72,11 @@ const Hero = () => {
             className="relative group overflow-visible origin-left md:origin-center"
           >
             {/* Solid State (Fades out on hover) */}
-            <h1 className="text-[12vw] md:text-[8rem] lg:text-[10rem] font-black tracking-tighter uppercase leading-[0.85] text-white transition-opacity duration-500 group-hover:opacity-0 cursor-default">
+            <h1 className="font-montserrat text-[12vw] md:text-[8rem] lg:text-[10rem] font-black tracking-tighter uppercase leading-[0.85] text-white transition-opacity duration-500 group-hover:opacity-0 cursor-default">
               Computer
             </h1>
             {/* Orange Glass State (Fades in on hover) */}
-            <h1 className="absolute inset-0 text-[12vw] md:text-[8rem] lg:text-[10rem] font-black tracking-tighter uppercase leading-[0.85] text-orange-500/40 blur-[2px] drop-shadow-[0_0_30px_rgba(249,115,22,0.8)] opacity-0 transition-opacity duration-500 group-hover:opacity-100 pointer-events-none">
+            <h1 className="font-montserrat absolute inset-0 text-[12vw] md:text-[8rem] lg:text-[10rem] font-black tracking-tighter uppercase leading-[0.85] text-orange-500/40 blur-[2px] drop-shadow-[0_0_30px_rgba(249,115,22,0.8)] opacity-0 transition-opacity duration-500 group-hover:opacity-100 pointer-events-none">
               Computer
             </h1>
           </motion.div>
@@ -89,11 +89,11 @@ const Hero = () => {
             className="relative group overflow-visible origin-left md:origin-center"
           >
             {/* Solid Gradient State (Fades out on hover) */}
-            <h1 className="text-[12vw] md:text-[8rem] lg:text-[10rem] font-black tracking-tighter uppercase leading-[0.85] text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-300 transition-opacity duration-500 group-hover:opacity-0 cursor-default">
+            <h1 className="font-montserrat text-[12vw] md:text-[8rem] lg:text-[10rem] font-black tracking-tighter uppercase leading-[0.85] text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-300 transition-opacity duration-500 group-hover:opacity-0 cursor-default">
               Engineer
             </h1>
             {/* White Glass State (Fades in on hover) */}
-            <h1 className="absolute inset-0 text-[12vw] md:text-[8rem] lg:text-[10rem] font-black tracking-tighter uppercase leading-[0.85] text-white/40 blur-[2px] drop-shadow-[0_0_30px_rgba(255,255,255,0.8)] opacity-0 transition-opacity duration-500 group-hover:opacity-100 pointer-events-none">
+            <h1 className="font-montserrat absolute inset-0 text-[12vw] md:text-[8rem] lg:text-[10rem] font-black tracking-tighter uppercase leading-[0.85] text-white/40 blur-[2px] drop-shadow-[0_0_30px_rgba(255,255,255,0.8)] opacity-0 transition-opacity duration-500 group-hover:opacity-100 pointer-events-none">
               Engineer
             </h1>
           </motion.div>
@@ -120,7 +120,7 @@ const Hero = () => {
           <a 
             href="#about" 
             onClick={(e) => handleScroll(e, '#about')}
-            className="group px-8 py-4 rounded-full text-white font-bold uppercase tracking-widest text-sm transition-all duration-300 hover:text-orange-500 flex items-center gap-2 cursor-pointer"
+            className="font-orbitron group px-8 py-4 rounded-full text-white font-bold uppercase tracking-widest text-sm transition-all duration-300 hover:text-orange-500 flex items-center gap-2 cursor-pointer"
           >
             More About JM
             <div className="w-2 h-2 rounded-full bg-orange-500 group-hover:scale-150 transition-transform duration-300" />
@@ -129,7 +129,7 @@ const Hero = () => {
           <a 
             href="#projects" 
             onClick={(e) => handleScroll(e, '#projects')}
-            className="group relative overflow-hidden px-8 py-4 rounded-full bg-orange-500 text-black font-black uppercase tracking-widest text-sm transition-all duration-300 hover:scale-105 w-full sm:w-auto text-center cursor-pointer"
+            className="font-orbitron group relative overflow-hidden px-8 py-4 rounded-full bg-orange-500 text-black font-black uppercase tracking-widest text-sm transition-all duration-300 hover:scale-105 w-full sm:w-auto text-center cursor-pointer"
           >
             <span className="absolute inset-0 bg-white scale-0 group-hover:scale-100 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] rounded-full origin-center" />
             <span className="relative z-10 flex items-center justify-center gap-2">

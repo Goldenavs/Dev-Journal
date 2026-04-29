@@ -30,7 +30,7 @@ const HackerText = ({ text, triggerOnHover = false }: { text: string, triggerOnH
 
   return (
     <span 
-      className="font-mono inline-block cursor-default"
+      className="font-orbitron inline-block cursor-default"
       onMouseEnter={() => triggerOnHover && setIsHovered(true)}
       onMouseLeave={() => triggerOnHover && setIsHovered(false)}
     >
@@ -168,7 +168,7 @@ const ImageVault = ({ images }: { images: string[] }) => {
             <ChevronUp className="w-3 h-3 text-[#ff5500]" />
             <ChevronDown className="w-3 h-3 text-[#ff5500]" />
           </div>
-          <span className="text-[#ff5500] font-mono text-xs uppercase tracking-widest whitespace-nowrap">
+          <span className="font-orbitron text-[#ff5500] text-xs uppercase tracking-widest whitespace-nowrap">
             Hover & Scroll [{currentIndex + 1}/{images.length}]
           </span>
         </div>
@@ -192,7 +192,7 @@ const Achievements = () => {
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
         
         <div className="absolute bottom-8 md:bottom-10 right-6 md:right-12 flex flex-col items-end gap-2 z-50 mix-blend-difference pointer-events-none">
-           <span className="text-white font-mono text-xs uppercase tracking-[0.3em]">Glory Log</span>
+           <span className="font-orbitron text-white text-xs uppercase tracking-[0.3em]">Glory Log</span>
            <div className="w-32 md:w-64 h-[1px] bg-white/20 relative flex justify-end">
               <motion.div 
                 className="absolute top-0 right-0 h-full bg-[#ff5500] shadow-[0_0_10px_#ff5500]" 
@@ -211,7 +211,7 @@ const Achievements = () => {
                 <div className="w-full md:w-5/12 flex flex-col justify-center relative z-20">
                   
                   <div 
-                    className="absolute -top-20 -left-10 text-[12rem] md:text-[18rem] font-black pointer-events-none select-none z-[-1] opacity-50"
+                    className="font-orbitron absolute -top-20 -left-10 text-[12rem] md:text-[18rem] font-black pointer-events-none select-none z-[-1] opacity-50"
                     style={{ WebkitTextStroke: '2px rgba(255, 85, 0, 0.1)', color: 'transparent' }}
                   >
                     {achievement.id}
@@ -221,23 +221,23 @@ const Achievements = () => {
                     <div className="w-12 h-12 rounded-full border border-[#ff5500]/30 bg-[#ff5500]/10 flex items-center justify-center text-[#ff5500]">
                       {achievement.icon}
                     </div>
-                    <span className="text-[#ff5500] font-mono text-sm tracking-widest uppercase">
+                    <span className="font-orbitron text-[#ff5500] text-sm tracking-widest uppercase">
                       <HackerText text={achievement.category} triggerOnHover={true} />
                     </span>
                   </div>
                   
-                  <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter text-white mb-6 leading-[0.85] drop-shadow-2xl hover:text-[#ff5500] hover:translate-x-4 transition-all duration-500 cursor-default">
+                  <h2 className="font-montserrat text-5xl md:text-8xl font-black uppercase tracking-tighter text-white mb-6 leading-[0.85] drop-shadow-2xl hover:text-[#ff5500] hover:translate-x-4 transition-all duration-500 cursor-default">
                     {achievement.title}
                   </h2>
 
                   <div className="flex flex-col gap-3 mb-8">
-                    <div className="flex items-center gap-3 text-neutral-300 font-mono text-sm uppercase tracking-wider">
+                    <div className="font-orbitron flex items-center gap-3 text-neutral-300 text-sm uppercase tracking-wider">
                       <Calendar className="w-4 h-4 text-[#ff5500]" />
                       {achievement.date}
                     </div>
                     
                     {achievement.place === "Various Venues & Workshops" ? (
-                      <div className="group flex items-center gap-3 text-neutral-300 font-mono text-sm uppercase tracking-wider w-fit">
+                      <div className="font-orbitron group flex items-center gap-3 text-neutral-300 text-sm uppercase tracking-wider w-fit">
                         <MapPin className="w-4 h-4 text-[#ff5500]" />
                         <span className="border-b border-transparent">{achievement.place}</span>
                       </div>
@@ -246,7 +246,7 @@ const Achievements = () => {
                         href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(achievement.place)}`}
                         target="_blank" 
                         rel="noreferrer"
-                        className="group flex items-center gap-3 text-neutral-300 font-mono text-sm uppercase tracking-wider hover:text-[#ff5500] hover:translate-x-2 transition-all duration-300 cursor-pointer w-fit"
+                        className="font-orbitron group flex items-center gap-3 text-neutral-300 text-sm uppercase tracking-wider hover:text-[#ff5500] hover:translate-x-2 transition-all duration-300 cursor-pointer w-fit"
                       >
                         <MapPin className="w-4 h-4 text-[#ff5500]" />
                         <span className="border-b border-transparent group-hover:border-[#ff5500] transition-colors">{achievement.place}</span>

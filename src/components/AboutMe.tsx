@@ -29,7 +29,7 @@ const PhotoFrame = ({
         <img src={src} alt={alt} className="w-full h-full object-cover opacity-80 mix-blend-luminosity hover:mix-blend-normal hover:opacity-100 transition-all duration-500" />
       ) : (
         <div className="w-full h-full bg-gradient-to-br from-neutral-800 to-neutral-900 flex items-center justify-center p-6 text-center group">
-          <span className="text-neutral-600 font-bold uppercase tracking-widest text-xs group-hover:text-orange-500 transition-colors duration-300">
+          <span className="font-orbitron text-neutral-600 font-bold uppercase tracking-widest text-xs group-hover:text-orange-500 transition-colors duration-300">
             [ {alt} ]
           </span>
         </div>
@@ -75,7 +75,7 @@ const AboutMe = () => {
       {/* Massive Background Watermark */}
       <motion.div 
         style={{ y: useTransform(scrollYProgress, [0, 1], [150, -150]) }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15vw] font-black uppercase text-white/[0.02] tracking-tighter pointer-events-none -z-10 whitespace-nowrap"
+        className="font-montserrat absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15vw] font-black uppercase text-white/[0.02] tracking-tighter pointer-events-none -z-10 whitespace-nowrap"
       >
         Vibe Coder
       </motion.div>
@@ -94,12 +94,12 @@ const AboutMe = () => {
         >
           <motion.div variants={textVariants} className="flex items-center gap-4 mb-8">
             <div className="w-12 h-[2px] bg-orange-500" />
-            <span className="text-sm font-bold uppercase tracking-[0.3em] text-orange-500">
+            <span className="font-orbitron text-sm font-bold uppercase tracking-[0.3em] text-orange-500">
               Nonchalant Coder
             </span>
           </motion.div>
 
-          <motion.h2 variants={textVariants} className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-8 leading-[0.9]">
+          <motion.h2 variants={textVariants} className="font-montserrat text-5xl md:text-7xl font-black uppercase tracking-tighter mb-8 leading-[0.9]">
             Hello, I am <br/>
             <span className="relative inline-block mt-2">
               <span 
@@ -114,7 +114,7 @@ const AboutMe = () => {
                 initial={{ opacity: 0, y: 10, scale: 0.8 }}
                 animate={showWolf ? { opacity: 1, y: -40, scale: 1 } : { opacity: 0, y: 10, scale: 0.8 }}
                 transition={{ type: "spring", bounce: 0.5 }}
-                className="absolute left-1/2 -translate-x-1/2 top-0 whitespace-nowrap bg-neutral-900 border border-orange-500/30 text-orange-500 text-xs md:text-sm font-bold uppercase tracking-widest py-2 px-4 rounded-full pointer-events-none z-20 shadow-[0_0_20px_rgba(249,115,22,0.3)]"
+                className="font-orbitron absolute left-1/2 -translate-x-1/2 top-0 whitespace-nowrap bg-neutral-900 border border-orange-500/30 text-orange-500 text-xs md:text-sm font-bold uppercase tracking-widest py-2 px-4 rounded-full pointer-events-none z-20 shadow-[0_0_20px_rgba(249,115,22,0.3)]"
               >
                 🐺 Do not disturb the alpha wolf
               </motion.div>
@@ -138,21 +138,21 @@ const AboutMe = () => {
           {/* THE STATS ROW */}
           <motion.div variants={textVariants} className="mt-12 flex flex-wrap items-center gap-6 md:gap-8">
              <div className="flex flex-col">
-               <span className="text-4xl font-black text-white">3rd</span>
-               <span className="text-xs uppercase tracking-widest text-orange-500 font-bold mt-1">Year Student</span>
+               <span className="font-orbitron text-4xl font-black text-white">3rd</span>
+               <span className="font-orbitron text-xs uppercase tracking-widest text-orange-500 font-bold mt-1">Year Student</span>
              </div>
              <div className="w-[1px] h-12 bg-white/10 hidden sm:block" />
              
              <div className="flex flex-col">
-               <span className="text-4xl font-black text-white">∞</span>
-               <span className="text-xs uppercase tracking-widest text-orange-500 font-bold mt-1">Lines of Code</span>
+               <span className="font-orbitron text-4xl font-black text-white">∞</span>
+               <span className="font-orbitron text-xs uppercase tracking-widest text-orange-500 font-bold mt-1">Lines of Code</span>
              </div>
              <div className="w-[1px] h-12 bg-white/10 hidden sm:block" />
              
              {/* THE HUMOROUS 3RD STAT */}
              <div className="flex flex-col">
-               <span className="text-4xl font-black text-white">404</span>
-               <span className="text-xs uppercase tracking-widest text-orange-500 font-bold mt-1">Sleep Not Found</span>
+               <span className="font-orbitron text-4xl font-black text-white">404</span>
+               <span className="font-orbitron text-xs uppercase tracking-widest text-orange-500 font-bold mt-1">Sleep Not Found</span>
              </div>
           </motion.div>
         </motion.div>

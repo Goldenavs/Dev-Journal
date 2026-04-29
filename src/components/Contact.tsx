@@ -65,7 +65,7 @@ const HackerText = ({ text, triggerOnHover = false }: { text: string, triggerOnH
   return (
     <span 
       ref={ref}
-      className="font-mono inline-block cursor-crosshair"
+      className="font-orbitron inline-block cursor-crosshair"
       onMouseEnter={() => triggerOnHover && setIsHovered(true)}
       onMouseLeave={() => triggerOnHover && setIsHovered(false)}
     >
@@ -143,7 +143,7 @@ const Contact = () => {
             <div className="p-2 bg-white/5 border border-[#ff5500]/30 rounded-lg">
               <Radio className="w-5 h-5 text-[#ff5500] animate-pulse" />
             </div>
-            <span className="text-[#ff5500] font-mono tracking-[0.3em] uppercase text-sm">
+            <span className="font-orbitron text-[#ff5500] tracking-[0.3em] uppercase text-sm">
               <HackerText text="ESTABLISH_CONNECTION" />
             </span>
           </motion.div>
@@ -153,7 +153,7 @@ const Contact = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.3 }}
             transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-            className="text-6xl md:text-[6rem] font-black uppercase tracking-tighter text-white mb-8 leading-[0.85] drop-shadow-2xl"
+            className="font-montserrat text-6xl md:text-[6rem] font-black uppercase tracking-tighter text-white mb-8 leading-[0.85] drop-shadow-2xl"
           >
             Ping The <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-400 to-neutral-700 pr-4">Network</span>
@@ -174,7 +174,7 @@ const Contact = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.3 }}
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-            className="flex items-center gap-4 text-neutral-500 font-mono text-xs uppercase tracking-widest"
+            className="font-orbitron flex items-center gap-4 text-neutral-500 text-xs uppercase tracking-widest"
           >
             <Map className="w-4 h-4" />
             <span>Terminal Location: Talisay, Central Visayas, PH</span>
@@ -204,16 +204,16 @@ const Contact = () => {
                   <div className="p-3 bg-white/5 border border-white/10 rounded-xl group-hover:text-[#ff5500] group-hover:border-[#ff5500]/30 transition-colors duration-500">
                     {node.icon}
                   </div>
-                  <span className="text-neutral-600 font-mono text-[10px] font-bold tracking-widest uppercase">
+                  <span className="font-orbitron text-neutral-600 text-[10px] font-bold tracking-widest uppercase">
                     {node.id}
                   </span>
                 </div>
 
                 <div className="relative z-10 mt-auto">
-                  <p className="text-[#ff5500] font-mono text-xs tracking-wider mb-2 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-4 group-hover:translate-x-0">
+                  <p className="font-orbitron text-[#ff5500] text-xs tracking-wider mb-2 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-4 group-hover:translate-x-0">
                     [{node.category}]
                   </p>
-                  <h3 className="text-2xl font-black text-white uppercase tracking-wider group-hover:text-[#ff5500] transition-colors duration-300">
+                  <h3 className="font-montserrat text-2xl font-black text-white uppercase tracking-wider group-hover:text-[#ff5500] transition-colors duration-300">
                     {node.name}
                   </h3>
                 </div>
@@ -235,10 +235,10 @@ const Contact = () => {
         transition={{ duration: 1, delay: 0.8 }}
         className="absolute bottom-6 left-1/2 -translate-x-1/2 w-full px-6 md:px-20 flex justify-between items-center z-10"
       >
-        <span className="text-neutral-600 font-mono text-[10px] uppercase tracking-widest">
+        <span className="font-orbitron text-neutral-600 text-[10px] uppercase tracking-widest">
           © {new Date().getFullYear()} John Michael Nave
         </span>
-        <div className="flex items-center gap-2 text-neutral-600 font-mono text-[10px] uppercase tracking-widest">
+        <div className="font-orbitron flex items-center gap-2 text-neutral-600 text-[10px] uppercase tracking-widest">
           <Terminal className="w-3 h-3" />
           <span>System_Online</span>
         </div>

@@ -33,7 +33,7 @@ const HackerText = ({ text, triggerOnHover = false }: { text: string, triggerOnH
   return (
     <span 
       ref={ref} 
-      className="font-mono inline-block cursor-crosshair"
+      className="font-orbitron inline-block cursor-crosshair"
       onMouseEnter={() => triggerOnHover && setIsHovered(true)}
       onMouseLeave={() => triggerOnHover && setIsHovered(false)}
     >
@@ -126,13 +126,13 @@ const Skills = () => {
         >
           <div className="flex items-center gap-4 mb-4">
             <div className="w-12 h-[2px] bg-[#ff5500]" />
-            <span className="text-[#ff5500] font-mono tracking-[0.3em] uppercase text-sm">
+            <span className="font-orbitron text-[#ff5500] tracking-[0.3em] uppercase text-sm">
               <HackerText text="SYSTEM_CAPABILITIES" />
             </span>
           </div>
           
           {/* UPGRADE: Seamless group hover effect across the entire phrase! */}
-          <h2 className="group text-5xl md:text-7xl font-black uppercase tracking-tighter cursor-default flex flex-wrap gap-x-4 items-center">
+          <h2 className="font-montserrat group text-5xl md:text-7xl font-black uppercase tracking-tighter cursor-default flex flex-wrap gap-x-4 items-center">
             <span className="text-white group-hover:text-[#ff5500] transition-colors duration-500 drop-shadow-lg">Skills &</span>
             
             <span className="relative inline-block pr-4">
@@ -162,7 +162,7 @@ const Skills = () => {
               >
                 <div className="flex items-center gap-3 mb-6 border-b border-white/5 pb-4">
                   {category.icon}
-                  <h3 className="text-white font-mono uppercase tracking-widest text-sm">{category.title}</h3>
+                  <h3 className="font-orbitron text-white uppercase tracking-widest text-sm">{category.title}</h3>
                 </div>
                 
                 <div className="grid grid-cols-3 gap-4">
@@ -183,7 +183,7 @@ const Skills = () => {
                           className="w-full h-full object-contain filter grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 relative z-10"
                         />
                       </div>
-                      <span className="text-neutral-500 font-mono text-[10px] uppercase tracking-wider group-hover:text-[#ff5500] transition-colors text-center">
+                      <span className="font-orbitron text-neutral-500 text-[10px] uppercase tracking-wider group-hover:text-[#ff5500] transition-colors text-center">
                         {skill.name}
                       </span>
                     </motion.a>
@@ -208,12 +208,12 @@ const Skills = () => {
               <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center gap-3">
                   <Terminal className="w-5 h-5 text-[#ff5500]" />
-                  <span className="text-[#ff5500] font-mono text-xs uppercase tracking-widest animate-pulse">Running Execution...</span>
+                  <span className="font-orbitron text-[#ff5500] text-xs uppercase tracking-widest animate-pulse">Running Execution...</span>
                 </div>
                 <Trophy className="w-6 h-6 text-neutral-600 group-hover:text-[#ff5500] transition-colors duration-500" />
               </div>
 
-              <h3 className="text-3xl font-black text-white uppercase tracking-tighter mb-4 leading-none group-hover:text-[#ff5500] transition-colors duration-500">
+              <h3 className="font-montserrat text-3xl font-black text-white uppercase tracking-tighter mb-4 leading-none group-hover:text-[#ff5500] transition-colors duration-500">
                 Algorithmic <br /> Warfare
               </h3>
               
@@ -231,7 +231,7 @@ const Skills = () => {
                 />
               </div>
 
-              <div className="mt-auto bg-black/80 rounded-lg p-4 font-mono text-xs text-neutral-500 space-y-2 border border-white/5 shadow-inner shrink-0">
+              <div className="font-orbitron mt-auto bg-black/80 rounded-lg p-4 text-xs text-neutral-500 space-y-2 border border-white/5 shadow-inner shrink-0">
                 <div className="flex items-center gap-2">
                   <ChevronRight className="w-3 h-3 text-[#ff5500]" />
                   <span>Compiling logic... <span className="text-green-500">SUCCESS</span></span>

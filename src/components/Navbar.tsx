@@ -18,7 +18,7 @@ const AnimatedLink = ({
     <a 
       href={href} 
       onClick={(e) => onClick(e, href)}
-      className="relative overflow-hidden group cursor-pointer text-sm font-bold uppercase tracking-widest text-neutral-400 block"
+      className="font-orbitron relative overflow-hidden group cursor-pointer text-sm font-bold uppercase tracking-widest text-neutral-400 block"
     >
       <span className={`block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${isActive ? '-translate-y-full' : 'group-hover:-translate-y-full'}`}>
         {title}
@@ -115,7 +115,7 @@ const Navbar = () => {
         <a 
           href="#hero" 
           onClick={(e) => handleNavClick(e, '#hero')}
-          className="relative overflow-hidden text-xl font-black tracking-tighter uppercase group block"
+          className="font-montserrat relative overflow-hidden text-xl font-black tracking-tighter uppercase group block"
         >
           <span className={`block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${activeSection === 'hero' ? '-translate-y-full text-white' : 'group-hover:-translate-y-full text-white'}`}>
             Dev<span className="text-orange-500"> Journal</span>
@@ -142,7 +142,7 @@ const Navbar = () => {
         <a 
           href="#contact" 
           onClick={(e) => handleNavClick(e, '#contact')}
-          className={`group relative overflow-hidden px-8 py-3 rounded-full font-black uppercase tracking-widest text-xs transition-all duration-300 block ${activeSection === 'contact' ? 'bg-white text-orange-500 scale-105' : 'bg-orange-500 text-black hover:scale-105'}`}
+          className={`font-orbitron group relative overflow-hidden px-8 py-3 rounded-full font-black uppercase tracking-widest text-xs transition-all duration-300 block ${activeSection === 'contact' ? 'bg-white text-orange-500 scale-105' : 'bg-orange-500 text-black hover:scale-105'}`}
         >
           <span className={`absolute inset-0 rounded-full transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] origin-center ${activeSection === 'contact' ? 'bg-white scale-100' : 'bg-white scale-0 group-hover:scale-100'}`}></span>
           

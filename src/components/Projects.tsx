@@ -61,7 +61,7 @@ const HackerText = ({ text, triggerOnHover = false }: { text: string, triggerOnH
   return (
     <span 
       ref={ref} 
-      className="font-mono inline-block cursor-default"
+      className="font-orbitron inline-block cursor-default"
       onMouseEnter={() => triggerOnHover && setIsHovered(true)}
       onMouseLeave={() => triggerOnHover && setIsHovered(false)}
     >
@@ -126,7 +126,7 @@ const Projects = () => {
         
         {/* Progress Bar (Bottom) */}
         <div className="absolute bottom-8 md:bottom-10 left-6 md:left-12 flex items-center gap-6 z-50 mix-blend-difference pointer-events-none">
-           <span className="text-white font-mono text-xs uppercase tracking-[0.3em]">Projects</span>
+           <span className="font-orbitron text-white text-xs uppercase tracking-[0.3em]">Projects</span>
            <div className="w-32 md:w-64 h-[1px] bg-white/20 relative">
               <motion.div 
                 className="absolute top-0 left-0 h-full bg-[#ff5500] shadow-[0_0_10px_#ff5500]" 
@@ -148,7 +148,7 @@ const Projects = () => {
                 <div className="w-full md:w-5/12 flex flex-col justify-center relative z-20">
                   
                   <div 
-                    className="absolute -top-10 -left-10 text-[15rem] md:text-[20rem] font-black pointer-events-none select-none z-[-1]"
+                    className="font-orbitron absolute -top-10 -left-10 text-[15rem] md:text-[20rem] font-black pointer-events-none select-none z-[-1]"
                     style={{ WebkitTextStroke: '2px rgba(255, 255, 255, 0.05)', color: 'transparent' }}
                   >
                     {project.id}
@@ -160,13 +160,13 @@ const Projects = () => {
                     transition={{ duration: 0.6, ease: "easeOut" }}
                     className="flex items-center gap-4 mb-8"
                   >
-                    <span className="text-[#ff5500] font-mono text-sm tracking-widest px-3 py-1 border border-[#ff5500]/30 bg-[#ff5500]/10 rounded-full">
+                    <span className="font-orbitron text-[#ff5500] text-sm tracking-widest px-3 py-1 border border-[#ff5500]/30 bg-[#ff5500]/10 rounded-full">
                       {project.year}
                     </span>
                     <div className="flex gap-2">
                       {project.role.map(r => (
                         // UPGRADE APPLIED HERE: The brackets stay static, the text inside decrypts on hover!
-                        <span key={r} className="text-neutral-300 font-mono text-xs uppercase tracking-wider hidden md:flex items-center hover:text-[#ff5500] transition-colors">
+                        <span key={r} className="font-orbitron text-neutral-300 text-xs uppercase tracking-wider hidden md:flex items-center hover:text-[#ff5500] transition-colors">
                           [<HackerText text={r} triggerOnHover={true} />]
                         </span>
                       ))}
@@ -177,7 +177,7 @@ const Projects = () => {
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-                    className="text-5xl md:text-8xl font-black uppercase tracking-tighter text-white mb-2 leading-[0.85] drop-shadow-2xl hover:text-[#ff5500] hover:translate-x-4 transition-all duration-500 cursor-default"
+                    className="font-montserrat text-5xl md:text-8xl font-black uppercase tracking-tighter text-white mb-2 leading-[0.85] drop-shadow-2xl hover:text-[#ff5500] hover:translate-x-4 transition-all duration-500 cursor-default"
                   >
                     {project.title}
                   </motion.h2>
@@ -201,13 +201,13 @@ const Projects = () => {
                       <div className="w-12 h-12 rounded-full border border-white/30 bg-black/40 backdrop-blur-md flex items-center justify-center group-hover:border-[#ff5500] group-hover:bg-[#ff5500]/20 transition-all duration-300">
                         <GithubIcon className="w-5 h-5 text-white group-hover:text-[#ff5500]" />
                       </div>
-                      <span className="text-white font-mono text-xs uppercase tracking-widest group-hover:text-[#ff5500] transition-colors">Repository</span>
+                      <span className="font-orbitron text-white text-xs uppercase tracking-widest group-hover:text-[#ff5500] transition-colors">Repository</span>
                     </a>
                     <a href={project.links.live} target="_blank" rel="noreferrer" className="group flex items-center gap-3">
                       <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center group-hover:bg-[#ff5500] transition-colors duration-300 shadow-[0_0_15px_rgba(255,255,255,0.2)]">
                         <ExternalLink className="w-5 h-5 text-black" />
                       </div>
-                      <span className="text-white font-mono text-xs uppercase tracking-widest group-hover:text-[#ff5500] transition-colors">Live Demo</span>
+                      <span className="font-orbitron text-white text-xs uppercase tracking-widest group-hover:text-[#ff5500] transition-colors">Live Demo</span>
                     </a>
                   </motion.div>
                 </div>
@@ -226,7 +226,7 @@ const Projects = () => {
                     <div className="w-full max-w-2xl bg-black/80 backdrop-blur-2xl p-6 md:p-8 rounded-2xl border border-white/10 shadow-[0_0_30px_rgba(0,0,0,0.8)] overflow-y-auto max-h-full scrollbar-hide">
                       <div className="flex items-center gap-2 mb-4 text-[#ff5500]">
                         <Code2 className="w-5 h-5" />
-                        <h3 className="font-mono text-sm uppercase tracking-widest">Project Brief</h3>
+                        <h3 className="font-orbitron text-sm uppercase tracking-widest">Project Brief</h3>
                       </div>
                       
                       <p className="text-neutral-200 text-sm md:text-base leading-relaxed mb-6">
@@ -237,7 +237,7 @@ const Projects = () => {
                         <div>
                           <div className="flex items-center gap-2 mb-3 text-white/50">
                             <Zap className="w-4 h-4" />
-                            <span className="font-mono text-xs uppercase tracking-wider">Key Features</span>
+                            <span className="font-orbitron text-xs uppercase tracking-wider">Key Features</span>
                           </div>
                           <ul className="space-y-2">
                             {project.features.map((feat, i) => (
@@ -251,7 +251,7 @@ const Projects = () => {
                         <div>
                           <div className="flex items-center gap-2 mb-3 text-white/50">
                             <Cpu className="w-4 h-4" />
-                            <span className="font-mono text-xs uppercase tracking-wider">Architecture</span>
+                            <span className="font-orbitron text-xs uppercase tracking-wider">Architecture</span>
                           </div>
                           <p className="text-white text-sm leading-relaxed">
                             {project.architecture}
@@ -261,7 +261,7 @@ const Projects = () => {
 
                       <div className="flex flex-wrap gap-2">
                         {project.techStack.map((tech, i) => (
-                          <span key={i} className="px-3 py-1 bg-white/5 border border-white/10 rounded-md text-white/70 font-mono text-xs hover:bg-[#ff5500]/20 hover:border-[#ff5500]/50 hover:text-[#ff5500] transition-colors cursor-default">
+                          <span key={i} className="font-orbitron px-3 py-1 bg-white/5 border border-white/10 rounded-md text-white/70 text-xs hover:bg-[#ff5500]/20 hover:border-[#ff5500]/50 hover:text-[#ff5500] transition-colors cursor-default">
                             {tech}
                           </span>
                         ))}
@@ -289,7 +289,7 @@ const Projects = () => {
                 className="mb-8 flex items-center gap-4 bg-black/50 px-6 py-2 rounded-full border border-[#ff5500]/30 shadow-[0_0_15px_rgba(255,85,0,0.2)]"
               >
                 <Terminal className="w-4 h-4 text-[#ff5500]" />
-                <span className="text-[#ff5500] tracking-[0.2em] uppercase text-xs md:text-sm">
+                <span className="font-orbitron text-[#ff5500] tracking-[0.2em] uppercase text-xs md:text-sm">
                   {/* DEFAULT BEHAVIOR: Glitches when it scrolls into view */}
                   <HackerText text="/// ROOT_ACCESS_GRANTED : JOHN MICHAEL NAVE" />
                 </span>
@@ -299,7 +299,7 @@ const Projects = () => {
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                className="text-6xl md:text-[9rem] font-black uppercase tracking-tighter text-white leading-[0.85] mb-12 drop-shadow-2xl"
+                className="font-montserrat text-6xl md:text-[9rem] font-black uppercase tracking-tighter text-white leading-[0.85] mb-12 drop-shadow-2xl"
               >
                 ACCESS <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-300 to-neutral-600 pr-4">
@@ -317,7 +317,7 @@ const Projects = () => {
                 
                 <div className="relative bg-[#ff5500] hover:bg-white text-black px-10 py-5 rounded-full flex items-center gap-4 transition-all duration-500 hover:scale-105 shadow-[0_0_40px_rgba(255,85,0,0.3)] group-hover:shadow-[0_0_60px_rgba(255,255,255,0.5)]">
                   <GithubIcon className="w-6 h-6" />
-                  <span className="font-black uppercase tracking-[0.2em] text-sm mt-0.5">My GitHub</span>
+                  <span className="font-orbitron font-black uppercase tracking-[0.2em] text-sm mt-0.5">My GitHub</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
                 </div>
               </motion.a>

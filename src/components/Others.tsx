@@ -34,7 +34,7 @@ const HackerText = ({ text, triggerOnHover = false }: { text: string, triggerOnH
   return (
     <span 
       ref={ref}
-      className="font-mono inline-block cursor-crosshair"
+      className="font-orbitron inline-block cursor-crosshair"
       onMouseEnter={() => triggerOnHover && setIsHovered(true)}
       onMouseLeave={() => triggerOnHover && setIsHovered(false)}
     >
@@ -123,7 +123,7 @@ const Others = () => {
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none z-0 opacity-40"
       >
         <span 
-          className="text-[20vw] font-black uppercase leading-none tracking-tighter"
+          className="font-montserrat text-[20vw] font-black uppercase leading-none tracking-tighter"
           style={{ WebkitTextStroke: '3px rgba(255, 85, 0, 0.1)', color: 'transparent' }}
         >
           LORE
@@ -142,13 +142,13 @@ const Others = () => {
         >
           <div className="flex items-center gap-4 mb-4 bg-black/50 px-6 py-2 rounded-full border border-[#ff5500]/30 shadow-[0_0_15px_rgba(255,85,0,0.2)]">
             <Radar className="w-4 h-4 text-[#ff5500] animate-spin-slow" />
-            <span className="text-[#ff5500] font-mono tracking-[0.2em] uppercase text-xs md:text-sm">
+            <span className="font-orbitron text-[#ff5500] tracking-[0.2em] uppercase text-xs md:text-sm">
               <HackerText text="/// UNCLASSIFIED_LOGS" />
             </span>
           </div>
           
           {/* UPGRADE: The Seamless "Fun Facts" Hover effect with clipping fix */}
-          <h2 className="group text-5xl md:text-7xl font-black uppercase tracking-tighter cursor-default flex flex-wrap gap-x-4 items-center justify-center drop-shadow-2xl">
+          <h2 className="font-montserrat group text-5xl md:text-7xl font-black uppercase tracking-tighter cursor-default flex flex-wrap gap-x-4 items-center justify-center drop-shadow-2xl">
             <span className="text-white group-hover:text-[#ff5500] transition-colors duration-500">Fun</span>
             
             {/* FIX: Added -mr-4 (negative margin) to perfectly balance the pr-4 padding! */}
@@ -197,16 +197,16 @@ const Others = () => {
                     <div className="p-3 bg-white/5 rounded-xl border border-white/5 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500">
                       {log.icon}
                     </div>
-                    <span className="text-neutral-600 font-mono text-xs font-bold tracking-widest uppercase">
+                    <span className="font-orbitron text-neutral-600 text-xs font-bold tracking-widest uppercase">
                       {log.id}
                     </span>
                   </div>
 
                   <div className="relative z-10 flex-grow">
-                    <h3 className="text-xl font-black text-white uppercase tracking-wider mb-1 group-hover:text-[#ff5500] transition-colors duration-300">
+                    <h3 className="font-montserrat text-xl font-black text-white uppercase tracking-wider mb-1 group-hover:text-[#ff5500] transition-colors duration-300">
                       {log.title}
                     </h3>
-                    <div className="text-3xl font-mono font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-neutral-500 mb-4">
+                    <div className="font-orbitron text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-neutral-500 mb-4">
                       {log.value}
                     </div>
                     <p className="text-neutral-400 text-sm leading-relaxed font-light">
