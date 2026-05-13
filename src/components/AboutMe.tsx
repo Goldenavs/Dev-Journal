@@ -185,7 +185,7 @@ const AboutMe = () => {
         style={{ y: useTransform(scrollYProgress, [0, 1], [150, -150]) }}
         className="font-montserrat absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[10vw] font-black uppercase text-white/[0.02] tracking-tighter pointer-events-none -z-20 whitespace-nowrap"
       >
-        SYSTEM ARCHITECTURE
+        ENGINEER
       </motion.div>
 
       {/* Cinematic focus transition wrapper */}

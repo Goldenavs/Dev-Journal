@@ -107,6 +107,14 @@ const Others = () => {
   // Massive background text moves counter to your scroll
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
 
+  // --- TRANSITION UPGRADE ---
+  // Tracks when the user is leaving this component to fade the background perfectly into Contact.tsx
+  const { scrollYProgress: exitProgress } = useScroll({
+    target: containerRef,
+    offset: ["center center", "end end"]
+  });
+  const fadeToContactBg = useTransform(exitProgress, [0, 1], [0, 1]);
+
   return (
     <section 
       id="intel" 
@@ -114,8 +122,17 @@ const Others = () => {
       className="relative min-h-screen bg-black/40 backdrop-blur-[4px] pt-32 pb-32 px-6 md:px-20 overflow-hidden flex flex-col items-center justify-center"
     >
       
+      {/* SEAMLESS TRANSITION OVERLAY: Fades to Contact's solid background color as you scroll down */}
+      <motion.div 
+        style={{ opacity: fadeToContactBg }}
+        className="absolute inset-0 bg-[#030303] pointer-events-none z-0" 
+      />
+
+      {/* Bottom gradient to eliminate any sub-pixel seam lines between the components */}
+      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#030303] to-transparent pointer-events-none z-10" />
+
       {/* Background Grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none z-0" />
 
       {/* Massive Parallax Background Text */}
       <motion.div 
@@ -147,23 +164,16 @@ const Others = () => {
             </span>
           </div>
           
-          {/* UPGRADE: The Seamless "Fun Facts" Hover effect with clipping fix */}
           <h2 className="font-montserrat group text-5xl md:text-7xl font-black uppercase tracking-tighter cursor-default flex flex-wrap gap-x-4 items-center justify-center drop-shadow-2xl">
             <span className="text-white group-hover:text-[#ff5500] transition-colors duration-500">Fun</span>
             
-            {/* FIX: Added -mr-4 (negative margin) to perfectly balance the pr-4 padding! */}
             <span className="relative inline-block -mr-4">
-              
-              {/* White Gradient (Fades out on hover) */}
               <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-400 to-neutral-700 transition-opacity duration-500 group-hover:opacity-0 pr-4">
                 Facts
               </span>
-              
-              {/* Neon Orange (Fades in on hover) */}
               <span className="absolute left-0 top-0 text-[#ff5500] opacity-0 group-hover:opacity-100 transition-opacity duration-500 drop-shadow-[0_0_15px_rgba(255,85,0,0.5)] pr-4 pointer-events-none">
                 Facts
               </span>
-              
             </span>
           </h2>
         </motion.div>

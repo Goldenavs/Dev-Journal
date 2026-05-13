@@ -97,6 +97,7 @@ const ACHIEVEMENTS = [
       "/ach-4-4.jpg",
       "/ach-4-5.jpg",
       "/ach-4-6.jpg",
+      "/ach-4-7.jpg",
     ]
   }
 ];

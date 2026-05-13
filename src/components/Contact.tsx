@@ -1,8 +1,8 @@
 import { motion, useMotionValue, useSpring, useInView, useTransform } from 'framer-motion';
-import { useRef, useState, useEffect, type MouseEvent } from 'react'; // Added 'type' here!
-import { Code2, MessageSquare, Terminal, Map, Radio } from 'lucide-react'; // Removed brand icons
+import { useRef, useState, useEffect, type MouseEvent } from 'react';
+import { Code2, MessageSquare, Terminal, Map, Radio } from 'lucide-react'; 
 
-// --- CUSTOM BRAND ICONS (Bypassing Lucide v1.0 restrictions) ---
+// --- CUSTOM BRAND ICONS ---
 const GithubIcon = ({ className }: { className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
@@ -120,13 +120,14 @@ const Contact = () => {
     >
       
       {/* THE INTERACTIVE TOPOGRAPHIC FIELD */}
+      {/* TRANSITION UPGRADE: Added [mask-image] so the interactive light fades out smoothly near the top edge, hiding the seam */}
       <motion.div 
-        className="absolute inset-0 z-0 pointer-events-none opacity-80"
+        className="absolute inset-0 z-0 pointer-events-none opacity-80 [mask-image:linear-gradient(to_bottom,transparent_0%,black_15%)]"
         style={{ background: backgroundStyle }}
       />
       
       {/* Static Grid Overlay to maintain the hacker aesthetic */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:4rem_4rem] z-0 pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:4rem_4rem] z-0 pointer-events-none [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%)]" />
 
       <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
         
@@ -155,8 +156,8 @@ const Contact = () => {
             transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
             className="font-montserrat text-6xl md:text-[6rem] font-black uppercase tracking-tighter text-white mb-8 leading-[0.85] drop-shadow-2xl"
           >
-            Ping The <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-400 to-neutral-700 pr-4">Network</span>
+            Contact <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-400 to-neutral-700 pr-4">Details</span>
           </motion.h2>
 
           <motion.p 
@@ -166,7 +167,7 @@ const Contact = () => {
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className="text-neutral-400 text-lg md:text-xl font-light tracking-wide border-l-2 border-[#ff5500] pl-6 py-2 mb-12"
           >
-            My coordinates are constantly shifting across the digital frontier. Execute a handshake request through any of the active nodes to establish direct comms.
+            I'm currently open to new opportunities and collaborations within the digital space. Feel free to reach out through any of these platforms to start a conversation.
           </motion.p>
 
           <motion.div 
