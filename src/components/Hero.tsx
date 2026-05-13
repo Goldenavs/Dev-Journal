@@ -65,8 +65,13 @@ const Hero = () => {
     target: ref,
     offset: ["start start", "end start"]
   });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
+  
+  // --- UPGRADED: Cinematic dissolve effect ---
+  // The Hero now shrinks slightly, fades out faster (by 70% of the scroll), and blurs heavily
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.7], [1, 0.95]);
+  const filter = useTransform(scrollYProgress, [0, 0.7], ["blur(0px)", "blur(20px)"]);
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -89,7 +94,8 @@ const Hero = () => {
   return (
     <section ref={ref} className="relative h-screen flex flex-col items-center justify-center overflow-hidden px-6">
       
-      <motion.div style={{ y, opacity }} className="w-full max-w-6xl z-10 flex flex-col items-start md:items-center text-left md:text-center mt-20">
+      {/* Applied the new scale and filter transforms here */}
+      <motion.div style={{ y, opacity, scale, filter }} className="w-full max-w-6xl z-10 flex flex-col items-start md:items-center text-left md:text-center mt-20">
         
         {/* 1. Refined Eyebrow with HackerText */}
         <motion.div 
@@ -105,7 +111,7 @@ const Hero = () => {
           <div className="w-8 md:w-12 h-[2px] bg-orange-500 group-hover:bg-orange-400 transition-colors duration-500 hidden md:block" />
         </motion.div>
 
-        {/* 2. Frosted Glass Headline (Scaled down for better balance) */}
+        {/* 2. Frosted Glass Headline */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
