@@ -66,7 +66,6 @@ const PhotoFrame = ({
       style={{ y }}
       whileHover={{ scale: 1.05, rotate: 0, zIndex: 50 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      // FIXED: Added flex flex-col here
       className={`group absolute flex flex-col bg-[#050505]/80 backdrop-blur-xl border border-white/10 shadow-[0_0_20px_rgba(0,0,0,0.8)] transition-all duration-500 hover:border-orange-500/40 hover:shadow-[0_0_30px_rgba(249,115,22,0.15)] p-2 ${className}`}
     >
       {/* Structural Crosshairs (Activate on Hover) */}
@@ -75,7 +74,7 @@ const PhotoFrame = ({
       <div className="absolute -bottom-[1px] -left-[1px] w-3 h-3 border-b-2 border-l-2 border-orange-500/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
       <div className="absolute -bottom-[1px] -right-[1px] w-3 h-3 border-b-2 border-r-2 border-orange-500/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
 
-      {/* Schematic Top Bar - Added flex-none to protect its height */}
+      {/* Schematic Top Bar */}
       <div className="flex-none flex items-center justify-between px-2 pb-2 mb-2 border-b border-white/10 w-full group-hover:border-orange-500/30 transition-colors duration-500">
         <span className="font-orbitron text-[9px] text-neutral-500 uppercase tracking-[0.2em] group-hover:text-orange-500 transition-colors">
           {sysId}
@@ -86,10 +85,8 @@ const PhotoFrame = ({
         </div>
       </div>
 
-      {/* Image Container with Architectural Grid Overlay - FIXED: flex-1 ensures it doesn't bleed out */}
+      {/* Image Container with Architectural Grid Overlay */}
       <div className="flex-1 w-full relative overflow-hidden rounded-sm bg-black group-hover:ring-1 ring-inset ring-orange-500/20 transition-all duration-500">
-        
-        {/* Blueprint Grid Mesh */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:10px_10px] pointer-events-none z-10" />
         
         {src ? (
@@ -137,6 +134,15 @@ const AboutMe = () => {
   const sectionFilter = useTransform(enterProgress, [0, 1], ["blur(20px)", "blur(0px)"]);
   const sectionScale = useTransform(enterProgress, [0, 1], [0.95, 1]);
 
+  // --- UPGRADE: Seamless Background Transition into Projects ---
+  // Starts fading in the dark background when the user is halfway through AboutMe,
+  // finishing exactly as the bottom of AboutMe touches the bottom of the screen.
+  const { scrollYProgress: exitProgress } = useScroll({
+    target: containerRef,
+    offset: ["center center", "end end"] 
+  });
+  const matchProjectsBgOpacity = useTransform(exitProgress, [0, 1], [0, 1]);
+
   const textVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
     show: { opacity: 1, y: 0, transition: { type: "spring", bounce: 0.4, duration: 1 } }
@@ -145,6 +151,13 @@ const AboutMe = () => {
   return (
     <section ref={containerRef} className="min-h-screen flex items-center justify-center py-32 px-6 relative z-10">
       
+      {/* SEAMLESS TRANSITION OVERLAY */}
+      {/* This layer slowly materializes to perfectly match the upcoming Projects section */}
+      <motion.div 
+        style={{ opacity: matchProjectsBgOpacity }}
+        className="absolute inset-0 bg-black/40 backdrop-blur-[4px] pointer-events-none -z-10"
+      />
+
       {/* STYLES: Text-Clipped Shine Effect */}
       <style>{`
         @keyframes text-shine {
@@ -170,9 +183,9 @@ const AboutMe = () => {
       {/* Massive Professional Background Watermark */}
       <motion.div 
         style={{ y: useTransform(scrollYProgress, [0, 1], [150, -150]) }}
-        className="font-montserrat absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[10vw] font-black uppercase text-white/[0.02] tracking-tighter pointer-events-none -z-10 whitespace-nowrap"
+        className="font-montserrat absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[10vw] font-black uppercase text-white/[0.02] tracking-tighter pointer-events-none -z-20 whitespace-nowrap"
       >
-        ENGINEER
+        SYSTEM ARCHITECTURE
       </motion.div>
 
       {/* Cinematic focus transition wrapper */}
@@ -216,7 +229,7 @@ const AboutMe = () => {
                 transition={{ type: "spring", bounce: 0.5 }}
                 className="font-orbitron absolute left-1/2 -translate-x-1/2 top-0 whitespace-nowrap bg-neutral-900 border border-orange-500/30 text-orange-500 text-xs md:text-sm font-bold uppercase tracking-widest py-2 px-4 rounded-full pointer-events-none z-20 shadow-[0_0_20px_rgba(249,115,22,0.3)]"
               >
-                🐺 alpha wolf
+                🐺 Do not disturb the alpha wolf
               </motion.div>
             </span>
           </motion.h2>
@@ -289,7 +302,7 @@ const AboutMe = () => {
           <PhotoFrame 
             src="/me-2.jpg"
             alt="Workspace"
-            sysId="SYS.IMG.02 // SUPPORT"
+            sysId="SYS.IMG.02 // TACTICAL"
             className="w-[220px] h-[280px] top-[5%] right-[5%] z-10 rotate-[6deg]"
             scrollYProgress={scrollYProgress}
             yOffset={[100, -100]} 
@@ -297,7 +310,7 @@ const AboutMe = () => {
           <PhotoFrame 
             src="/me-3.jpg"
             alt="Companion"
-            sysId="SYS.IMG.03 // FACE_CARD"
+            sysId="SYS.IMG.03 // SUPPORT"
             className="w-[200px] h-[250px] bottom-[5%] left-[5%] z-30 rotate-[-8deg]"
             scrollYProgress={scrollYProgress}
             yOffset={[-50, 100]} 

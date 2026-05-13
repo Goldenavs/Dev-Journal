@@ -1,8 +1,9 @@
+// src/components/Projects.tsx
 import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import { ExternalLink, ArrowRight, Code2, Cpu, Zap, Terminal } from 'lucide-react';
 
-// Custom Github Icon to bypass Lucide v1.0 removals
+// Custom Github Icon
 const GithubIcon = ({ className }: { className?: string }) => (
   <svg 
     xmlns="http://www.w3.org/2000/svg" 
@@ -19,21 +20,16 @@ const GithubIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-// UPGRADED: HackerText now supports triggering on Scroll (isInView) OR on Hover
 const HackerText = ({ text, triggerOnHover = false }: { text: string, triggerOnHover?: boolean }) => {
   const [displayText, setDisplayText] = useState("");
   const [isHovered, setIsHovered] = useState(false);
   const ref = useRef(null);
-  
-  // Only track view state if we aren't using hover mode
   const isInView = useInView(ref, { once: false, margin: "-50px" });
 
   useEffect(() => {
-    // Determine the trigger based on mode
     const shouldTrigger = triggerOnHover ? isHovered : isInView;
-
     if (!shouldTrigger) {
-      setDisplayText(""); // Reset immediately when trigger stops
+      setDisplayText(""); 
       return;
     }
     
@@ -70,6 +66,7 @@ const HackerText = ({ text, triggerOnHover = false }: { text: string, triggerOnH
   );
 };
 
+// DYNAMIC DATA
 const PROJECTS = [
   {
     id: "01",
@@ -77,8 +74,17 @@ const PROJECTS = [
     tagline: "Sign Language Learning Companion",
     role: ["Lead Developer", "Frontend Designer"],
     year: "2024",
-    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop", 
-    links: { github: "https://github.com/Goldenavs/GesturiX", live: "#" },
+    images: [
+      "/proj-1-1.jpg",
+      "/proj-1-2.jpg",
+      "/proj-1-3.jpg",
+      "/proj-1-4.jpg",
+      "/proj-1-5.jpg",
+      "/proj-1-6.jpg",
+      "/proj-1-7.jpg",
+      "/proj-1-8.jpg",
+    ],
+    links: { github: "https://github.com/Goldenavs/GesturiX", live: "#" }, 
     description: "A modern educational tool that uses real-time AI computer vision to translate and teach sign language interactively to make learning accessible.",
     techStack: ["React Native", "FastAPI", "MediaPipe", "PyTorch", "Supabase"],
     features: ["Real-time gesture detection", "Video learning modules", "Custom profiles"],
@@ -90,12 +96,17 @@ const PROJECTS = [
     tagline: "AI-Powered Holistic Discovery",
     role: ["Full-Stack", "AI Integration"],
     year: "2024",
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop",
-    links: { github: "https://github.com/Goldenavs/Tuklascope", live: "#" },
+    images: [
+      "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1607252654015-504cb8470a10?q=80&w=600&auto=format&fit=crop"
+    ],
+    links: { github: "https://github.com/Goldenavs/Tuklascope", live: "https://tuklascope-demo.com" },
     description: "An educational app transforming everyday environments into interactive classrooms using a multi-layered AI object detection architecture.",
-    techStack: ["React.js", "FastAPI", "Gemini API", "PostgreSQL", "Google Vision"],
+    techStack: ["Flutter", "Dart", "FastAPI", "Gemini API", "PostgreSQL", "Google Vision"],
     features: ["Interdisciplinary scanning", "Dynamic skill tree", "Conversational AI Tutor"],
-    architecture: "React frontend orchestrated by FastAPI, utilizing Google Vision for object detection and Gemini for context-aware localized tutoring.",
+    architecture: "Flutter frontend orchestrated by FastAPI, utilizing Google Vision for object detection and Gemini for context-aware localized tutoring.",
   },
   {
     id: "03",
@@ -103,8 +114,15 @@ const PROJECTS = [
     tagline: "Student-Exclusive Digital Hub",
     role: ["Backend Developer", "Database Design"],
     year: "2024",
-    image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop",
-    links: { github: "https://github.com/Goldenavs/CampuSee", live: "#" },
+    images: [
+      "/proj-3-1.jpg",
+      "/proj-3-2.jpg",
+      "/proj-3-3.jpg",
+      "/proj-3-4.jpg",
+      "/proj-3-5.jpg",
+      "/proj-3-6.jpg",
+    ],
+    links: { github: "https://github.com/Goldenavs/CampuSee", live: "" },
     description: "A secure networking platform designed specifically for university students to share resources, find lost items, and collaborate efficiently.",
     techStack: ["React Native", "Expo", "TypeScript", "Supabase"],
     features: ["Categorized campus feed", "Real-time notifications", "Resource exchange"],
@@ -122,6 +140,23 @@ const Projects = () => {
 
   return (
     <section ref={targetRef} className="relative bg-black/40 backdrop-blur-[4px]" style={{ height: `${totalSlides * 100}vh` }}>
+      
+      {/* CSS For Infinite Mobile Carousel */}
+      <style>{`
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+          animation: marquee 35s linear infinite;
+          display: flex;
+          width: max-content;
+        }
+        .group:hover .animate-marquee {
+          animation-play-state: paused;
+        }
+      `}</style>
+
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
         
         {/* Progress Bar (Bottom) */}
@@ -165,7 +200,6 @@ const Projects = () => {
                     </span>
                     <div className="flex gap-2">
                       {project.role.map(r => (
-                        // UPGRADE APPLIED HERE: The brackets stay static, the text inside decrypts on hover!
                         <span key={r} className="font-orbitron text-neutral-300 text-xs uppercase tracking-wider hidden md:flex items-center hover:text-[#ff5500] transition-colors">
                           [<HackerText text={r} triggerOnHover={true} />]
                         </span>
@@ -197,33 +231,51 @@ const Projects = () => {
                     transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
                     className="flex flex-wrap items-center gap-6 mt-8"
                   >
-                    <a href={project.links.github} target="_blank" rel="noreferrer" className="group flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-full border border-white/30 bg-black/40 backdrop-blur-md flex items-center justify-center group-hover:border-[#ff5500] group-hover:bg-[#ff5500]/20 transition-all duration-300">
-                        <GithubIcon className="w-5 h-5 text-white group-hover:text-[#ff5500]" />
-                      </div>
-                      <span className="font-orbitron text-white text-xs uppercase tracking-widest group-hover:text-[#ff5500] transition-colors">Repository</span>
-                    </a>
-                    <a href={project.links.live} target="_blank" rel="noreferrer" className="group flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center group-hover:bg-[#ff5500] transition-colors duration-300 shadow-[0_0_15px_rgba(255,255,255,0.2)]">
-                        <ExternalLink className="w-5 h-5 text-black" />
-                      </div>
-                      <span className="font-orbitron text-white text-xs uppercase tracking-widest group-hover:text-[#ff5500] transition-colors">Live Demo</span>
-                    </a>
+                    {/* Repository Button */}
+                    {project.links.github && project.links.github !== "#" && (
+                      <a href={project.links.github} target="_blank" rel="noreferrer" className="group/btn flex items-center gap-3">
+                        <div className="w-12 h-12 rounded-full border border-white/30 bg-black/40 backdrop-blur-md flex items-center justify-center group-hover/btn:border-[#ff5500] group-hover/btn:bg-[#ff5500]/20 transition-all duration-300">
+                          <GithubIcon className="w-5 h-5 text-white group-hover/btn:text-[#ff5500]" />
+                        </div>
+                        <span className="font-orbitron text-white text-xs uppercase tracking-widest group-hover/btn:text-[#ff5500] transition-colors">Repository</span>
+                      </a>
+                    )}
+                    
+                    {/* Dynamic Live Demo Button */}
+                    {project.links.live && project.links.live !== "#" && (
+                      <a href={project.links.live} target="_blank" rel="noreferrer" className="group/btn flex items-center gap-3">
+                        <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center group-hover/btn:bg-[#ff5500] transition-colors duration-300 shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+                          <ExternalLink className="w-5 h-5 text-black" />
+                        </div>
+                        <span className="font-orbitron text-white text-xs uppercase tracking-widest group-hover/btn:text-[#ff5500] transition-colors">Live Demo</span>
+                      </a>
+                    )}
                   </motion.div>
                 </div>
                 
-                {/* RIGHT: The Vault (Image + Hover Data) */}
-                <div className="w-full md:w-7/12 h-[45vh] md:h-[65vh] relative group overflow-hidden rounded-2xl md:rounded-[2rem] border border-white/10 shadow-2xl bg-black/50">
+                {/* RIGHT: Pure Invisible Container */}
+                <div className="w-full md:w-7/12 h-[45vh] md:h-[65vh] relative group overflow-hidden">
                   
-                  <img 
-                    src={project.image} 
-                    alt={project.title}
-                    className="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-100 group-hover:opacity-10 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
-                  />
+                  {/* --- MASKED Auto-scrolling Mobile Screens Carousel --- */}
+                  <div className="absolute inset-0 w-full flex items-center group-hover:blur-[10px] group-hover:opacity-20 transition-all duration-700 ease-out z-0 [mask-image:linear-gradient(to_right,transparent_0%,black_15%,black_85%,transparent_100%)]">
+                    <div className="animate-marquee gap-6 pr-6 pl-6">
+                      {[...project.images, ...project.images].map((img, i) => (
+                        <div 
+                          key={i} 
+                          className="w-[160px] md:w-[220px] aspect-[9/19] rounded-xl p-[4px] bg-[#1a1a1a]/80 backdrop-blur-sm shrink-0 shadow-2xl relative shadow-black/50 border border-white/10"
+                        >
+                          <div className="w-full h-full rounded-lg overflow-hidden bg-black">
+                            <img src={img} alt={`App screen ${i}`} className="w-full h-full object-cover opacity-80" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                   
-                  <div className="absolute inset-0 p-6 md:p-12 flex flex-col items-center justify-center opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]">
+                  {/* --- THE VAULT: Hidden on default, appears on hover --- */}
+                  <div className="absolute inset-0 p-6 md:p-12 flex flex-col items-center justify-center opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] z-10 pointer-events-none group-hover:pointer-events-auto">
                     
-                    <div className="w-full max-w-2xl bg-black/80 backdrop-blur-2xl p-6 md:p-8 rounded-2xl border border-white/10 shadow-[0_0_30px_rgba(0,0,0,0.8)] overflow-y-auto max-h-full scrollbar-hide">
+                    <div className="w-full max-w-2xl bg-black/70 backdrop-blur-3xl p-6 md:p-8 rounded-2xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.9)] overflow-y-auto max-h-full scrollbar-hide">
                       <div className="flex items-center gap-2 mb-4 text-[#ff5500]">
                         <Code2 className="w-5 h-5" />
                         <h3 className="font-orbitron text-sm uppercase tracking-widest">Project Brief</h3>
@@ -242,7 +294,7 @@ const Projects = () => {
                           <ul className="space-y-2">
                             {project.features.map((feat, i) => (
                               <li key={i} className="text-white text-sm flex items-center gap-2">
-                                <div className="w-1 h-1 bg-[#ff5500] rounded-full shrink-0" />
+                                <div className="w-1.5 h-1.5 bg-[#ff5500] rounded-full shrink-0 shadow-[0_0_8px_#ff5500]" />
                                 {feat}
                               </li>
                             ))}
@@ -261,7 +313,7 @@ const Projects = () => {
 
                       <div className="flex flex-wrap gap-2">
                         {project.techStack.map((tech, i) => (
-                          <span key={i} className="font-orbitron px-3 py-1 bg-white/5 border border-white/10 rounded-md text-white/70 text-xs hover:bg-[#ff5500]/20 hover:border-[#ff5500]/50 hover:text-[#ff5500] transition-colors cursor-default">
+                          <span key={i} className="font-orbitron px-3 py-1 bg-white/5 border border-white/10 rounded-md text-white/80 text-xs hover:bg-[#ff5500]/20 hover:border-[#ff5500]/50 hover:text-[#ff5500] transition-colors cursor-default">
                             {tech}
                           </span>
                         ))}
@@ -280,8 +332,8 @@ const Projects = () => {
             
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem]" />
             
-            <div className="z-10 flex flex-col items-center text-center">
-              
+            <div className="z-10 relative w-full max-w-5xl mx-auto flex flex-col items-center text-center">
+
               <motion.div 
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -290,16 +342,16 @@ const Projects = () => {
               >
                 <Terminal className="w-4 h-4 text-[#ff5500]" />
                 <span className="font-orbitron text-[#ff5500] tracking-[0.2em] uppercase text-xs md:text-sm">
-                  {/* DEFAULT BEHAVIOR: Glitches when it scrolls into view */}
                   <HackerText text="/// ROOT_ACCESS_GRANTED : JOHN MICHAEL NAVE" />
                 </span>
               </motion.div>
 
+              {/* FIXED: Reduced font sizes from 6xl/9rem to 5xl/7rem for a cleaner layout */}
               <motion.h2 
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                className="font-montserrat text-6xl md:text-[9rem] font-black uppercase tracking-tighter text-white leading-[0.85] mb-12 drop-shadow-2xl"
+                className="font-montserrat text-5xl md:text-[7rem] font-black uppercase tracking-tighter text-white leading-[0.85] mb-12 drop-shadow-2xl relative z-10"
               >
                 ACCESS <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-300 to-neutral-600 pr-4">
@@ -311,7 +363,7 @@ const Projects = () => {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
-                href="https://github.com/Goldenavs" target="_blank" rel="noreferrer" className="group relative inline-flex items-center justify-center"
+                href="https://github.com/Goldenavs" target="_blank" rel="noreferrer" className="group relative inline-flex items-center justify-center z-30"
               >
                 <div className="absolute inset-0 bg-[#ff5500] rounded-full blur-2xl opacity-20 group-hover:opacity-60 transition-opacity duration-500" />
                 
