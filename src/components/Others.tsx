@@ -56,16 +56,16 @@ const INTEL_LOGS = [
   {
     id: "LOG_02",
     title: "Pack Dynamics",
-    value: "Alpha Wolf",
-    description: "Operating strictly on nonchalant alpha wolf energy. I don't panic when the production server breaks; I just howl at the moon and push a hotfix.",
+    value: "Nonchalant",
+    description: "Operating strictly on nonchalant alpha wolf energy. I don't panic when the production server breaks; I just fix the problem nonchalantly.",
     icon: <Flame className="w-8 h-8 text-[#ff5500]" />,
     delay: 0.3
   },
   {
     id: "LOG_03",
     title: "Visual Interface",
-    value: "100% Cute",
-    description: "Despite writing aggressive backend logic and staring at terminal windows all day, my physical UI is canonically certified as cute.",
+    value: "100% Cool",
+    description: "Despite writing aggressive backend logic, my frontend UI design is aesthetically cool.",
     icon: <Sparkles className="w-8 h-8 text-[#ff5500]" />,
     delay: 0.5
   },

@@ -178,7 +178,7 @@ const Contact = () => {
             className="font-orbitron flex items-center gap-4 text-neutral-500 text-xs uppercase tracking-widest"
           >
             <Map className="w-4 h-4" />
-            <span>Terminal Location: Talisay, Central Visayas, PH</span>
+            <span>Terminal Location: Talisay City, Cebu, PH</span>
           </motion.div>
         </div>
 
