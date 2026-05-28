@@ -72,7 +72,7 @@ const INTEL_LOGS = [
   {
     id: "LOG_04",
     title: "Downtime Protocols",
-    value: "Gaming & Anime",
+    value: "Nerd?",
     description: "When not optimizing code execution time, I optimize my gaming backlog and binge top-tier anime. High-octane visuals fuel my UI inspirations.",
     icon: <Gamepad2 className="w-8 h-8 text-[#ff5500]" />,
     delay: 0.2
