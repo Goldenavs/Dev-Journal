@@ -57,7 +57,7 @@ const INTEL_LOGS = [
     id: "LOG_02",
     title: "Pack Dynamics",
     value: "Nonchalant",
-    description: "Operating strictly on nonchalant alpha wolf energy. I don't panic when the production server breaks; I just fix the problem nonchalantly.",
+    description: "Operating strictly on nonchalant energy. I don't panic when the production server breaks; I just fix the problem nonchalantly.",
     icon: <Flame className="w-8 h-8 text-[#ff5500]" />,
     delay: 0.3
   },
@@ -80,8 +80,8 @@ const INTEL_LOGS = [
   {
     id: "LOG_05",
     title: "Biological Companions",
-    value: "Canines & Felines",
-    description: "Fluent in both dog and cat. They act as my primary debugging rubber ducks when the compiler throws inexplicable errors.",
+    value: "Woof Woof",
+    description: "I love dogs (and cats!?). They act as my primary debugging rubber ducks when the compiler throws inexplicable errors.",
     icon: <Heart className="w-8 h-8 text-[#ff5500]" />,
     delay: 0.4
   },

@@ -225,7 +225,7 @@ const Skills = () => {
               <div className="w-full flex-1 min-h-[150px] md:min-h-[200px] rounded-xl overflow-hidden mb-8 border border-white/10 relative">
                 <div className="absolute inset-0 bg-[#ff5500]/20 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
                 <img 
-                  src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2070&auto=format&fit=crop" 
+                  src="/code-1.png" 
                   alt="Algorithmic Code Matrix" 
                   className="w-full h-full object-cover filter grayscale opacity-70 group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
                 />

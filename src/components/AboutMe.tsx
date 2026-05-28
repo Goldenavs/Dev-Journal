@@ -229,7 +229,7 @@ const AboutMe = () => {
                 transition={{ type: "spring", bounce: 0.5 }}
                 className="font-orbitron absolute left-1/2 -translate-x-1/2 top-0 whitespace-nowrap bg-neutral-900 border border-orange-500/30 text-orange-500 text-xs md:text-sm font-bold uppercase tracking-widest py-2 px-4 rounded-full pointer-events-none z-20 shadow-[0_0_20px_rgba(249,115,22,0.3)]"
               >
-                🐺 Do not disturb the alpha wolf
+                alpha wolf
               </motion.div>
             </span>
           </motion.h2>
