@@ -34,7 +34,6 @@ const HackerText = ({ text, triggerOnHover = false }: { text: string, triggerOnH
     }
     
     let iteration = 0;
-    // FIX 3: Removed wide characters to prevent line wrapping
     const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#><[]{}";
     
     const interval = setInterval(() => {
@@ -58,7 +57,6 @@ const HackerText = ({ text, triggerOnHover = false }: { text: string, triggerOnH
   return (
     <span 
       ref={ref} 
-      // FIX 3: Added whitespace-nowrap to prevent screen jolting
       className="font-orbitron inline-block cursor-default whitespace-nowrap"
       onMouseEnter={() => triggerOnHover && setIsHovered(true)}
       onMouseLeave={() => triggerOnHover && setIsHovered(false)}
@@ -172,7 +170,6 @@ const Projects = () => {
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 250, damping: 30, mass: 0.5 });
   
   const [isTuklascopeWeb, setIsTuklascopeWeb] = useState(false);
-  // FIX 2: State to explicitly track taps on mobile devices
   const [tappedProject, setTappedProject] = useState<string | null>(null);
 
   const totalSlides = PROJECTS.length + 1;
@@ -220,7 +217,6 @@ const Projects = () => {
             const mobileMarqueeImages = project.hasVersions ? project.versions.mobile.images : project.images;
 
             return (
-              // FIX 1: pt-24 changed to pt-32 on mobile so the top info doesn't hide behind the navbar
               <div key={project.id} className="w-[100vw] h-screen flex flex-col justify-center shrink-0 px-6 md:px-20 pt-32 md:pt-32 pb-24 relative">
                 
                 <div className="w-full max-w-[90rem] mx-auto z-10 flex flex-col md:flex-row items-center gap-12 md:gap-20">
@@ -305,14 +301,13 @@ const Projects = () => {
                   
                   {/* RIGHT: Visuals & 3D Flipping Container */}
                   <div 
-                    className="w-full md:w-7/12 h-[45vh] md:h-[65vh] relative group overflow-hidden cursor-pointer md:cursor-auto" 
+                    className="w-full md:w-7/12 h-[45vh] md:h-[65vh] relative group overflow-hidden cursor-pointer md:cursor-auto mt-8 md:mt-0" 
                     style={{ perspective: '1200px' }}
-                    // FIX 2: Manages tap state exclusively for mobile devices
                     onClick={() => setTappedProject(tappedProject === project.id ? null : project.id)}
                   >
                     
-                    {/* Mobile Hint UX Component */}
-                    <div className={`absolute bottom-4 right-4 md:hidden z-40 bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-2 transition-opacity duration-300 pointer-events-none ${tappedProject === project.id ? 'opacity-0' : 'opacity-100'}`}>
+                    {/* Mobile Hint UX Component - FIX 1: Moved to top-4 */}
+                    <div className={`absolute top-4 right-4 md:hidden z-40 bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-2 transition-opacity duration-300 pointer-events-none ${tappedProject === project.id ? 'opacity-0' : 'opacity-100'}`}>
                       <span className="relative flex h-2 w-2">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ff5500] opacity-75"></span>
                         <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ff5500]"></span>
@@ -328,7 +323,6 @@ const Projects = () => {
                     >
                       {/* FRONT FACE: Mobile Marquee */}
                       <div className="absolute inset-0 w-full h-full" style={{ backfaceVisibility: "hidden" }}>
-                        {/* FIX 2: Added md:group-hover logic and state logic to apply visual blur when tapped */}
                         <div className={`absolute inset-0 w-full flex items-center transition-all duration-700 ease-out z-0 [mask-image:linear-gradient(to_right,transparent_0%,black_15%,black_85%,transparent_100%)] ${tappedProject === project.id ? 'blur-[10px] opacity-20' : ''} md:group-hover:blur-[10px] md:group-hover:opacity-20`}>
                           <div className="animate-marquee gap-6 pr-6 pl-6">
                             {[...mobileMarqueeImages, ...mobileMarqueeImages].map((img, i) => (
@@ -351,7 +345,6 @@ const Projects = () => {
                           className="absolute inset-0 w-full h-full flex flex-col items-center justify-center p-4 md:p-12" 
                           style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
                         >
-                          {/* FIX 2: Same conditional classes to blur on mobile tap */}
                           <div className={`w-full max-w-4xl aspect-[16/9] rounded-xl p-[4px] bg-[#1a1a1a]/80 backdrop-blur-sm shadow-[0_0_50px_rgba(0,0,0,0.6)] relative border border-white/10 transition-all duration-700 ${tappedProject === project.id ? 'blur-[10px] opacity-20' : ''} md:group-hover:blur-[10px] md:group-hover:opacity-20`}>
                             <div className="w-full h-full rounded-lg overflow-hidden bg-neutral-900 flex items-center justify-center relative">
                                <img 
@@ -371,9 +364,8 @@ const Projects = () => {
                     </motion.div>
                     
                     {/* THE VAULT (Hover info) */}
-                    {/* FIX 2: Toggles display based on tap state OR desktop hover */}
                     <div className={`absolute inset-0 p-6 md:p-12 flex flex-col items-center justify-center transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] z-30 ${tappedProject === project.id ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-8 pointer-events-none'} md:group-hover:opacity-100 md:group-hover:translate-y-0 md:group-hover:pointer-events-auto`}>
-                      <div className="w-full max-w-2xl bg-black/70 backdrop-blur-3xl p-6 md:p-8 rounded-2xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.9)] overflow-y-auto max-h-full scrollbar-hide">
+                      <div className="w-full max-w-2xl bg-black/80 backdrop-blur-3xl p-6 md:p-8 rounded-2xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.9)] overflow-y-auto max-h-full scrollbar-hide">
                         <div className="flex items-center gap-2 mb-4 text-[#ff5500]">
                           <Code2 className="w-5 h-5" />
                           <h3 className="font-orbitron text-sm uppercase tracking-widest">Project Brief</h3>
@@ -426,21 +418,23 @@ const Projects = () => {
           })}
 
           {/* FINAL SLIDE: THE HACKER CTA */}
-          {/* FIX 1: pt-24 changed to pt-32 on mobile here as well */}
           <div className="w-[100vw] h-screen flex flex-col items-center justify-center shrink-0 px-6 pt-32 md:pt-32 pb-24 relative bg-black/60 backdrop-blur-sm">
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem]" />
             <div className="z-10 relative w-full max-w-5xl mx-auto flex flex-col items-center text-center">
+              
+              {/* FIX 2: Dropped text size to text-[8px] sm:text-[10px] and shortened string to prevent clipping */}
               <motion.div 
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
-                className="mb-8 flex items-center gap-4 bg-black/50 px-6 py-2 rounded-full border border-[#ff5500]/30 shadow-[0_0_15px_rgba(255,85,0,0.2)] max-w-full overflow-hidden"
+                className="mb-8 flex items-center justify-center gap-3 md:gap-4 bg-black/50 px-4 md:px-6 py-2 rounded-full border border-[#ff5500]/30 shadow-[0_0_15px_rgba(255,85,0,0.2)] max-w-[90vw] overflow-hidden"
               >
-                <Terminal className="w-4 h-4 text-[#ff5500] shrink-0" />
-                <span className="font-orbitron text-[#ff5500] tracking-[0.1em] md:tracking-[0.2em] uppercase text-[10px] md:text-sm truncate">
-                  <HackerText text="/// ROOT_ACCESS_GRANTED : JOHN MICHAEL NAVE" />
+                <Terminal className="w-3 h-3 md:w-4 md:h-4 text-[#ff5500] shrink-0" />
+                <span className="font-orbitron text-[#ff5500] tracking-widest md:tracking-[0.2em] uppercase text-[8px] sm:text-[10px] md:text-sm">
+                  <HackerText text="/// ROOT_ACCESS : JM NAVE" />
                 </span>
               </motion.div>
+
               <motion.h2 
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
