@@ -18,7 +18,8 @@ const HackerText = ({ text, triggerOnHover = false }: { text: string, triggerOnH
     }
     
     let iteration = 0;
-    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$><[]{}";
+    // Removed ultra-wide characters like @ and $ to minimize horizontal stretching
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#><[]{}"; 
     
     const interval = setInterval(() => {
       setDisplayText(
@@ -41,7 +42,8 @@ const HackerText = ({ text, triggerOnHover = false }: { text: string, triggerOnH
   return (
     <span 
       ref={ref} 
-      className="inline-block cursor-default"
+      // Added whitespace-nowrap so the text NEVER wraps to a new line and jolts the screen
+      className="inline-block cursor-default whitespace-nowrap"
       onMouseEnter={() => triggerOnHover && setIsHovered(true)}
       onMouseLeave={() => triggerOnHover && setIsHovered(false)}
     >
@@ -158,7 +160,8 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
-          className="text-base md:text-xl text-neutral-400 max-w-4xl font-light leading-relaxed mb-12 cursor-default border-l-2 border-transparent hover:border-orange-500/50 hover:bg-white/5 pl-4 py-2 rounded-r-lg md:px-6 md:border-none md:hover:bg-transparent transition-all duration-500"
+          // CHANGED: pl-4 is now px-4 so padding is equal on both sides
+          className="text-base md:text-xl text-neutral-400 max-w-4xl font-light leading-relaxed mb-12 cursor-default border-l-2 border-transparent hover:border-orange-500/50 hover:bg-white/5 py-2 rounded-r-lg md:px-6 md:border-none md:hover:bg-transparent transition-all duration-500"
         >
           Computer Engineering student at{' '}
           <a 
