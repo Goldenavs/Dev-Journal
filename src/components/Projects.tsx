@@ -34,7 +34,8 @@ const HackerText = ({ text, triggerOnHover = false }: { text: string, triggerOnH
     }
     
     let iteration = 0;
-    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$><[]{}";
+    // FIX 3: Removed wide characters to prevent line wrapping
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#><[]{}";
     
     const interval = setInterval(() => {
       setDisplayText(
@@ -57,7 +58,8 @@ const HackerText = ({ text, triggerOnHover = false }: { text: string, triggerOnH
   return (
     <span 
       ref={ref} 
-      className="font-orbitron inline-block cursor-default"
+      // FIX 3: Added whitespace-nowrap to prevent screen jolting
+      className="font-orbitron inline-block cursor-default whitespace-nowrap"
       onMouseEnter={() => triggerOnHover && setIsHovered(true)}
       onMouseLeave={() => triggerOnHover && setIsHovered(false)}
     >
@@ -66,9 +68,6 @@ const HackerText = ({ text, triggerOnHover = false }: { text: string, triggerOnH
   );
 };
 
-// --- ADD THESE TYPES ABOVE YOUR PROJECTS ARRAY ---
-
-// 1. The shared details every project or version must have
 interface ProjectDetails {
   tagline: string;
   role: string[];
@@ -80,32 +79,26 @@ interface ProjectDetails {
   architecture: string;
 }
 
-// 2. The standard flat project structure (GesturiX, CampuSee)
 interface StandardProject extends ProjectDetails {
   id: string;
   title: string;
   links: { github: string; live?: string };
-  hasVersions?: false; // Tells TS this version DOES NOT have the versions object
+  hasVersions?: false;
 }
 
-// 3. The nested versioned project structure (TuklaScope)
 interface VersionedProject {
   id: string;
   title: string;
   links: { github: string; live?: string };
-  hasVersions: true;   // Tells TS this version DOES have the versions object
+  hasVersions: true;
   versions: {
     mobile: ProjectDetails;
     web: ProjectDetails;
   };
 }
 
-// 4. Combine them into a union type
 type ProjectType = StandardProject | VersionedProject;
 
-// --- UPDATE THE ARRAY DEFINITION TO USE THE TYPE ---
-
-// DYNAMIC DATA - Now Strictly Typed!
 const PROJECTS: ProjectType[] = [
   {
     id: "01",
@@ -178,8 +171,9 @@ const Projects = () => {
   const { scrollYProgress } = useScroll({ target: targetRef });
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 250, damping: 30, mass: 0.5 });
   
-  // State to manage the Mobile/Web flip specifically for TuklaScope
   const [isTuklascopeWeb, setIsTuklascopeWeb] = useState(false);
+  // FIX 2: State to explicitly track taps on mobile devices
+  const [tappedProject, setTappedProject] = useState<string | null>(null);
 
   const totalSlides = PROJECTS.length + 1;
   const x = useTransform(smoothProgress, [0, 1], ["0%", `-${(totalSlides - 1) * (100 / totalSlides)}%`]);
@@ -219,16 +213,15 @@ const Projects = () => {
         <motion.div style={{ x, width: `${totalSlides * 100}vw` }} className="flex h-full">
           
           {PROJECTS.map((project) => {
-            // Dynamically select data depending on if it has versions and what the toggle state is
             const displayData = project.hasVersions 
               ? (isTuklascopeWeb ? project.versions.web : project.versions.mobile)
               : project;
 
-            // Ensures the marquee always renders mobile images regardless of state to avoid crashing
             const mobileMarqueeImages = project.hasVersions ? project.versions.mobile.images : project.images;
 
             return (
-              <div key={project.id} className="w-[100vw] h-screen flex flex-col justify-center shrink-0 px-6 md:px-20 pt-24 md:pt-32 pb-24 relative">
+              // FIX 1: pt-24 changed to pt-32 on mobile so the top info doesn't hide behind the navbar
+              <div key={project.id} className="w-[100vw] h-screen flex flex-col justify-center shrink-0 px-6 md:px-20 pt-32 md:pt-32 pb-24 relative">
                 
                 <div className="w-full max-w-[90rem] mx-auto z-10 flex flex-col md:flex-row items-center gap-12 md:gap-20">
                   
@@ -284,7 +277,6 @@ const Projects = () => {
                       transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
                       className="flex flex-wrap items-center gap-6 mt-8"
                     >
-                      {/* GitHub Button */}
                       {project.links.github && (
                         <a href={project.links.github} target="_blank" rel="noreferrer" className="group/btn flex items-center gap-3">
                           <div className="w-12 h-12 rounded-full border border-white/30 bg-black/40 backdrop-blur-md flex items-center justify-center group-hover/btn:border-[#ff5500] group-hover/btn:bg-[#ff5500]/20 transition-all duration-300">
@@ -294,7 +286,6 @@ const Projects = () => {
                         </a>
                       )}
 
-                      {/* TUKLASCOPE EXCLUSIVE: Mobile / Web Prototype Switch */}
                       {project.hasVersions && (
                         <button 
                           onClick={() => setIsTuklascopeWeb(!isTuklascopeWeb)}
@@ -313,9 +304,22 @@ const Projects = () => {
                   </div>
                   
                   {/* RIGHT: Visuals & 3D Flipping Container */}
-                  <div className="w-full md:w-7/12 h-[45vh] md:h-[65vh] relative group overflow-hidden" style={{ perspective: '1200px' }}>
+                  <div 
+                    className="w-full md:w-7/12 h-[45vh] md:h-[65vh] relative group overflow-hidden cursor-pointer md:cursor-auto" 
+                    style={{ perspective: '1200px' }}
+                    // FIX 2: Manages tap state exclusively for mobile devices
+                    onClick={() => setTappedProject(tappedProject === project.id ? null : project.id)}
+                  >
                     
-                    {/* Flipping Core */}
+                    {/* Mobile Hint UX Component */}
+                    <div className={`absolute bottom-4 right-4 md:hidden z-40 bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-2 transition-opacity duration-300 pointer-events-none ${tappedProject === project.id ? 'opacity-0' : 'opacity-100'}`}>
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ff5500] opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ff5500]"></span>
+                      </span>
+                      <span className="font-orbitron text-[9px] text-white uppercase tracking-widest">Tap to Reveal</span>
+                    </div>
+
                     <motion.div 
                       animate={{ rotateY: project.hasVersions && isTuklascopeWeb ? 180 : 0 }}
                       transition={{ duration: 0.8, type: "spring", stiffness: 50, damping: 15 }}
@@ -324,7 +328,8 @@ const Projects = () => {
                     >
                       {/* FRONT FACE: Mobile Marquee */}
                       <div className="absolute inset-0 w-full h-full" style={{ backfaceVisibility: "hidden" }}>
-                        <div className="absolute inset-0 w-full flex items-center group-hover:blur-[10px] group-hover:opacity-20 transition-all duration-700 ease-out z-0 [mask-image:linear-gradient(to_right,transparent_0%,black_15%,black_85%,transparent_100%)]">
+                        {/* FIX 2: Added md:group-hover logic and state logic to apply visual blur when tapped */}
+                        <div className={`absolute inset-0 w-full flex items-center transition-all duration-700 ease-out z-0 [mask-image:linear-gradient(to_right,transparent_0%,black_15%,black_85%,transparent_100%)] ${tappedProject === project.id ? 'blur-[10px] opacity-20' : ''} md:group-hover:blur-[10px] md:group-hover:opacity-20`}>
                           <div className="animate-marquee gap-6 pr-6 pl-6">
                             {[...mobileMarqueeImages, ...mobileMarqueeImages].map((img, i) => (
                               <div 
@@ -340,15 +345,15 @@ const Projects = () => {
                         </div>
                       </div>
 
-                      {/* BACK FACE: Web Landscape (Only renders if project has versions) */}
+                      {/* BACK FACE: Web Landscape */}
                       {project.hasVersions && (
                         <div 
                           className="absolute inset-0 w-full h-full flex flex-col items-center justify-center p-4 md:p-12" 
                           style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
                         >
-                          <div className="w-full max-w-4xl aspect-[16/9] rounded-xl p-[4px] bg-[#1a1a1a]/80 backdrop-blur-sm shadow-[0_0_50px_rgba(0,0,0,0.6)] relative border border-white/10 group-hover:blur-[10px] group-hover:opacity-20 transition-all duration-700">
+                          {/* FIX 2: Same conditional classes to blur on mobile tap */}
+                          <div className={`w-full max-w-4xl aspect-[16/9] rounded-xl p-[4px] bg-[#1a1a1a]/80 backdrop-blur-sm shadow-[0_0_50px_rgba(0,0,0,0.6)] relative border border-white/10 transition-all duration-700 ${tappedProject === project.id ? 'blur-[10px] opacity-20' : ''} md:group-hover:blur-[10px] md:group-hover:opacity-20`}>
                             <div className="w-full h-full rounded-lg overflow-hidden bg-neutral-900 flex items-center justify-center relative">
-                               {/* Image with fallback styled UI if the screenshot isn't added yet */}
                                <img 
                                   src={project.versions.web.images[0]} 
                                   alt="Web Dashboard" 
@@ -365,8 +370,9 @@ const Projects = () => {
                       )}
                     </motion.div>
                     
-                    {/* THE VAULT (Hover info) - Placed outside the flipping div so it naturally overlays the active side */}
-                    <div className="absolute inset-0 p-6 md:p-12 flex flex-col items-center justify-center opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] z-30 pointer-events-none group-hover:pointer-events-auto">
+                    {/* THE VAULT (Hover info) */}
+                    {/* FIX 2: Toggles display based on tap state OR desktop hover */}
+                    <div className={`absolute inset-0 p-6 md:p-12 flex flex-col items-center justify-center transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] z-30 ${tappedProject === project.id ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-8 pointer-events-none'} md:group-hover:opacity-100 md:group-hover:translate-y-0 md:group-hover:pointer-events-auto`}>
                       <div className="w-full max-w-2xl bg-black/70 backdrop-blur-3xl p-6 md:p-8 rounded-2xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.9)] overflow-y-auto max-h-full scrollbar-hide">
                         <div className="flex items-center gap-2 mb-4 text-[#ff5500]">
                           <Code2 className="w-5 h-5" />
@@ -420,17 +426,18 @@ const Projects = () => {
           })}
 
           {/* FINAL SLIDE: THE HACKER CTA */}
-          <div className="w-[100vw] h-screen flex flex-col items-center justify-center shrink-0 px-6 pt-24 md:pt-32 pb-24 relative bg-black/60 backdrop-blur-sm">
+          {/* FIX 1: pt-24 changed to pt-32 on mobile here as well */}
+          <div className="w-[100vw] h-screen flex flex-col items-center justify-center shrink-0 px-6 pt-32 md:pt-32 pb-24 relative bg-black/60 backdrop-blur-sm">
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem]" />
             <div className="z-10 relative w-full max-w-5xl mx-auto flex flex-col items-center text-center">
               <motion.div 
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
-                className="mb-8 flex items-center gap-4 bg-black/50 px-6 py-2 rounded-full border border-[#ff5500]/30 shadow-[0_0_15px_rgba(255,85,0,0.2)]"
+                className="mb-8 flex items-center gap-4 bg-black/50 px-6 py-2 rounded-full border border-[#ff5500]/30 shadow-[0_0_15px_rgba(255,85,0,0.2)] max-w-full overflow-hidden"
               >
-                <Terminal className="w-4 h-4 text-[#ff5500]" />
-                <span className="font-orbitron text-[#ff5500] tracking-[0.2em] uppercase text-xs md:text-sm">
+                <Terminal className="w-4 h-4 text-[#ff5500] shrink-0" />
+                <span className="font-orbitron text-[#ff5500] tracking-[0.1em] md:tracking-[0.2em] uppercase text-[10px] md:text-sm truncate">
                   <HackerText text="/// ROOT_ACCESS_GRANTED : JOHN MICHAEL NAVE" />
                 </span>
               </motion.div>
