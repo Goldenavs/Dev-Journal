@@ -178,7 +178,6 @@ const Projects = () => {
   return (
     <section ref={targetRef} className="relative bg-black/40 backdrop-blur-[4px]" style={{ height: `${totalSlides * 100}vh` }}>
       
-      {/* CSS FIX: @media (hover: hover) prevents mobile browsers from getting stuck in a hover state */}
       <style>{`
         @keyframes marquee {
           0% { transform: translateX(0); }
@@ -198,7 +197,7 @@ const Projects = () => {
 
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
         
-        {/* Progress Bar - FIX: Dropped to bottom-4 on mobile so it clears the showcase images */}
+        {/* Progress Bar */}
         <div className="absolute bottom-4 md:bottom-10 left-6 md:left-12 flex items-center gap-6 z-50 mix-blend-difference pointer-events-none">
            <span className="font-orbitron text-white text-xs uppercase tracking-[0.3em]">Projects</span>
            <div className="w-32 md:w-64 h-[1px] bg-white/20 relative">
@@ -220,16 +219,18 @@ const Projects = () => {
             const mobileMarqueeImages = project.hasVersions ? project.versions.mobile.images : project.images;
 
             return (
-              // FIX: Swapped mobile flex behavior to `justify-start` with a hard `pt-36` to guarantee it dodges the navbar
-              <div key={project.id} className="w-[100vw] h-[100dvh] flex flex-col justify-start md:justify-center shrink-0 px-6 md:px-20 md:pt-0 pb-20 md:pb-0 relative">
+              // FIX 1: pt-24 provides a balanced forehead. `h-[100dvh]` keeps the container strictly screen-sized.
+              <div key={project.id} className="w-[100vw] h-[100dvh] flex flex-col justify-center shrink-0 px-6 md:px-20 pt-24 md:pt-0 pb-16 md:pb-0 relative">
                 
-                <div className="w-full max-w-[90rem] mx-auto z-10 flex flex-col md:flex-row items-center gap-12 md:gap-20">
+                {/* FIX 2: We use `h-full` so this wrapper fills the 100dvh safe space. 
+                    Flex gap reduced from gap-12 to gap-4 on mobile for compact stacking */}
+                <div className="w-full h-full md:h-auto max-w-[90rem] mx-auto z-10 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-20">
                   
                   {/* LEFT: Typography & Core Info */}
-                  <div className="w-full md:w-5/12 flex flex-col justify-center relative z-20">
+                  <div className="w-full md:w-5/12 flex flex-col justify-center relative z-20 shrink-0">
                     
                     <div 
-                      className="font-orbitron absolute -top-10 -left-10 text-[15rem] md:text-[20rem] font-black pointer-events-none select-none z-[-1] transition-opacity duration-500"
+                      className="font-orbitron absolute -top-8 -left-8 md:-top-10 md:-left-10 text-[10rem] md:text-[20rem] font-black pointer-events-none select-none z-[-1] transition-opacity duration-500"
                       style={{ WebkitTextStroke: '2px rgba(255, 255, 255, 0.05)', color: 'transparent' }}
                     >
                       {project.id}
@@ -239,7 +240,7 @@ const Projects = () => {
                       initial={{ opacity: 0, y: 30 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, ease: "easeOut" }}
-                      className="flex items-center gap-4 mb-8"
+                      className="flex items-center gap-4 mb-4 md:mb-8"
                     >
                       <span className="font-orbitron text-[#ff5500] text-sm tracking-widest px-3 py-1 border border-[#ff5500]/30 bg-[#ff5500]/10 rounded-full transition-all duration-300">
                         {displayData.year}
@@ -257,7 +258,7 @@ const Projects = () => {
                       initial={{ opacity: 0, y: 30 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-                      className="font-montserrat text-5xl md:text-8xl font-black uppercase tracking-tighter text-white mb-2 leading-[0.85] drop-shadow-2xl hover:text-[#ff5500] hover:translate-x-4 transition-all duration-500 cursor-default"
+                      className="font-montserrat text-5xl md:text-8xl font-black uppercase tracking-tighter text-white mb-1 md:mb-2 leading-[0.85] drop-shadow-2xl hover:text-[#ff5500] hover:translate-x-4 transition-all duration-500 cursor-default"
                     >
                       {project.title}
                     </motion.h2>
@@ -266,7 +267,7 @@ const Projects = () => {
                       initial={{ opacity: 0, y: 30 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-                      className="text-neutral-400 text-lg md:text-2xl font-light tracking-wide mb-6 border-l-2 border-[#ff5500] pl-4 mt-6 py-2 rounded-r-lg hover:border-l-8 hover:pl-6 hover:text-white hover:bg-white/5 transition-all duration-300 cursor-default"
+                      className="text-neutral-400 text-base md:text-2xl font-light tracking-wide mb-4 md:mb-6 border-l-2 border-[#ff5500] pl-4 mt-4 md:mt-6 py-1 md:py-2 rounded-r-lg hover:border-l-8 hover:pl-6 hover:text-white hover:bg-white/5 transition-all duration-300 cursor-default"
                     >
                       {displayData.tagline}
                     </motion.p>
@@ -275,14 +276,14 @@ const Projects = () => {
                       initial={{ opacity: 0, y: 30 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
-                      className="flex flex-wrap items-center gap-6 mt-8"
+                      className="flex flex-wrap items-center gap-4 md:gap-6 mt-4 md:mt-8"
                     >
                       {project.links.github && (
                         <a href={project.links.github} target="_blank" rel="noreferrer" className="group/btn flex items-center gap-3">
-                          <div className="w-12 h-12 rounded-full border border-white/30 bg-black/40 backdrop-blur-md flex items-center justify-center group-hover/btn:border-[#ff5500] group-hover/btn:bg-[#ff5500]/20 transition-all duration-300">
-                            <GithubIcon className="w-5 h-5 text-white group-hover/btn:text-[#ff5500]" />
+                          <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/30 bg-black/40 backdrop-blur-md flex items-center justify-center group-hover/btn:border-[#ff5500] group-hover/btn:bg-[#ff5500]/20 transition-all duration-300">
+                            <GithubIcon className="w-4 h-4 md:w-5 md:h-5 text-white group-hover/btn:text-[#ff5500]" />
                           </div>
-                          <span className="font-orbitron text-white text-xs uppercase tracking-widest group-hover/btn:text-[#ff5500] transition-colors">Repository</span>
+                          <span className="font-orbitron text-white text-[10px] md:text-xs uppercase tracking-widest group-hover/btn:text-[#ff5500] transition-colors">Repository</span>
                         </a>
                       )}
 
@@ -291,11 +292,11 @@ const Projects = () => {
                           onClick={() => setIsTuklascopeWeb(!isTuklascopeWeb)}
                           className="group/btn flex items-center gap-3 cursor-pointer z-50 outline-none"
                         >
-                          <div className="relative w-12 h-12 rounded-full bg-white flex items-center justify-center group-hover/btn:bg-[#ff5500] transition-all duration-500 shadow-[0_0_15px_rgba(255,255,255,0.2)]">
-                            <Monitor className={`absolute w-5 h-5 text-black transition-all duration-500 ${isTuklascopeWeb ? 'opacity-0 scale-50 -rotate-180' : 'opacity-100 scale-100 rotate-0'}`} />
-                            <Smartphone className={`absolute w-5 h-5 text-black transition-all duration-500 ${!isTuklascopeWeb ? 'opacity-0 scale-50 rotate-180' : 'opacity-100 scale-100 rotate-0'}`} />
+                          <div className="relative w-10 h-10 md:w-12 md:h-12 rounded-full bg-white flex items-center justify-center group-hover/btn:bg-[#ff5500] transition-all duration-500 shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+                            <Monitor className={`absolute w-4 h-4 md:w-5 md:h-5 text-black transition-all duration-500 ${isTuklascopeWeb ? 'opacity-0 scale-50 -rotate-180' : 'opacity-100 scale-100 rotate-0'}`} />
+                            <Smartphone className={`absolute w-4 h-4 md:w-5 md:h-5 text-black transition-all duration-500 ${!isTuklascopeWeb ? 'opacity-0 scale-50 rotate-180' : 'opacity-100 scale-100 rotate-0'}`} />
                           </div>
-                          <span className="font-orbitron text-white text-xs uppercase tracking-widest group-hover/btn:text-[#ff5500] transition-colors w-32 text-left leading-tight">
+                          <span className="font-orbitron text-white text-[10px] md:text-xs uppercase tracking-widest group-hover/btn:text-[#ff5500] transition-colors w-24 md:w-32 text-left leading-tight">
                             Switch to {isTuklascopeWeb ? "Mobile App" : "Web Prototype"}
                           </span>
                         </button>
@@ -304,14 +305,13 @@ const Projects = () => {
                   </div>
                   
                   {/* RIGHT: Visuals & 3D Flipping Container */}
-                  {/* FIX: Reduced mobile height to h-[38vh] to prevent overlapping the progress bar */}
+                  {/* FIX 3: Replaced `h-[38vh]` with `flex-1 min-h-[25vh] max-h-[45vh]`. This automatically fills whatever space is left over without overflowing! */}
                   <div 
-                    className="w-full md:w-7/12 h-[38vh] md:h-[65vh] relative group overflow-hidden cursor-pointer md:cursor-auto mt-6 md:mt-0" 
+                    className="w-full md:w-7/12 flex-1 md:flex-none md:h-[65vh] min-h-[25vh] max-h-[45vh] md:max-h-none relative group overflow-hidden cursor-pointer md:cursor-auto" 
                     style={{ perspective: '1200px' }}
                     onClick={() => setTappedProject(tappedProject === project.id ? null : project.id)}
                   >
                     
-                    {/* Mobile Hint UX Component */}
                     <div className={`absolute top-4 right-4 md:hidden z-40 bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-2 transition-opacity duration-300 pointer-events-none ${tappedProject === project.id ? 'opacity-0' : 'opacity-100'}`}>
                       <span className="relative flex h-2 w-2">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ff5500] opacity-75"></span>
@@ -330,17 +330,17 @@ const Projects = () => {
                       <div className="absolute inset-0 w-full h-full" style={{ backfaceVisibility: "hidden" }}>
                         <div className={`absolute inset-0 w-full flex items-center transition-all duration-700 ease-out z-0 [mask-image:linear-gradient(to_right,transparent_0%,black_15%,black_85%,transparent_100%)] ${tappedProject === project.id ? 'blur-[10px] opacity-20' : ''} md:group-hover:blur-[10px] md:group-hover:opacity-20`}>
                           
-                          {/* FIX: explicitly manage the play state inline based on tap status */}
                           <div 
-                            className="animate-marquee gap-6 pr-6 pl-6"
+                            className="animate-marquee gap-6 pr-6 pl-6 h-full items-center"
                             style={{ animationPlayState: tappedProject === project.id ? 'paused' : 'running' }}
                           >
                             {[...mobileMarqueeImages, ...mobileMarqueeImages].map((img, i) => (
                               <div 
                                 key={i} 
-                                className="w-[160px] md:w-[220px] aspect-[9/19] rounded-xl p-[4px] bg-[#1a1a1a]/80 backdrop-blur-sm shrink-0 shadow-2xl relative shadow-black/50 border border-white/10"
+                                // Scaled the aspect container dynamically by height on mobile to ensure it never breaks container bounds
+                                className="h-[90%] max-w-[40vw] md:w-[220px] aspect-[9/19] rounded-xl p-[4px] bg-[#1a1a1a]/80 backdrop-blur-sm shrink-0 shadow-2xl relative shadow-black/50 border border-white/10"
                               >
-                                <div className="w-full h-full rounded-lg overflow-hidden bg-black">
+                                <div className="w-full h-full rounded-lg overflow-hidden bg-black flex items-center justify-center">
                                   <img src={img} alt={`App screen ${i}`} className="w-full h-full object-cover opacity-80" />
                                 </div>
                               </div>
@@ -374,26 +374,26 @@ const Projects = () => {
                     </motion.div>
                     
                     {/* THE VAULT (Hover info) */}
-                    <div className={`absolute inset-0 p-6 md:p-12 flex flex-col items-center justify-center transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] z-30 ${tappedProject === project.id ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-8 pointer-events-none'} md:group-hover:opacity-100 md:group-hover:translate-y-0 md:group-hover:pointer-events-auto`}>
-                      <div className="w-full max-w-2xl bg-black/80 backdrop-blur-3xl p-6 md:p-8 rounded-2xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.9)] overflow-y-auto max-h-full scrollbar-hide">
+                    <div className={`absolute inset-0 p-4 md:p-12 flex flex-col items-center justify-center transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] z-30 ${tappedProject === project.id ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-8 pointer-events-none'} md:group-hover:opacity-100 md:group-hover:translate-y-0 md:group-hover:pointer-events-auto`}>
+                      <div className="w-full max-w-2xl h-full md:h-auto bg-black/80 backdrop-blur-3xl p-6 md:p-8 rounded-2xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.9)] overflow-y-auto scrollbar-hide">
                         <div className="flex items-center gap-2 mb-4 text-[#ff5500]">
                           <Code2 className="w-5 h-5" />
                           <h3 className="font-orbitron text-sm uppercase tracking-widest">Project Brief</h3>
                         </div>
                         
-                        <p className="text-neutral-200 text-sm md:text-base leading-relaxed mb-6">
+                        <p className="text-neutral-200 text-xs sm:text-sm md:text-base leading-relaxed mb-6">
                           {displayData.description}
                         </p>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 border-y border-white/10 py-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6 border-y border-white/10 py-4 md:py-6">
                           <div>
                             <div className="flex items-center gap-2 mb-3 text-white/50">
                               <Zap className="w-4 h-4" />
-                              <span className="font-orbitron text-xs uppercase tracking-wider">Key Features</span>
+                              <span className="font-orbitron text-[10px] md:text-xs uppercase tracking-wider">Key Features</span>
                             </div>
                             <ul className="space-y-2">
                               {displayData.features.map((feat: string, i: number) => (
-                                <li key={i} className="text-white text-sm flex items-center gap-2">
+                                <li key={i} className="text-white text-[10px] sm:text-xs md:text-sm flex items-center gap-2">
                                   <div className="w-1.5 h-1.5 bg-[#ff5500] rounded-full shrink-0 shadow-[0_0_8px_#ff5500]" />
                                   {feat}
                                 </li>
@@ -403,9 +403,9 @@ const Projects = () => {
                           <div>
                             <div className="flex items-center gap-2 mb-3 text-white/50">
                               <Cpu className="w-4 h-4" />
-                              <span className="font-orbitron text-xs uppercase tracking-wider">Architecture</span>
+                              <span className="font-orbitron text-[10px] md:text-xs uppercase tracking-wider">Architecture</span>
                             </div>
-                            <p className="text-white text-sm leading-relaxed">
+                            <p className="text-white text-[10px] sm:text-xs md:text-sm leading-relaxed">
                               {displayData.architecture}
                             </p>
                           </div>
@@ -413,7 +413,7 @@ const Projects = () => {
 
                         <div className="flex flex-wrap gap-2">
                           {displayData.techStack.map((tech: string, i: number) => (
-                            <span key={i} className="font-orbitron px-3 py-1 bg-white/5 border border-white/10 rounded-md text-white/80 text-xs hover:bg-[#ff5500]/20 hover:border-[#ff5500]/50 hover:text-[#ff5500] transition-colors cursor-default">
+                            <span key={i} className="font-orbitron px-2 py-1 md:px-3 md:py-1 bg-white/5 border border-white/10 rounded-md text-white/80 text-[9px] md:text-xs hover:bg-[#ff5500]/20 hover:border-[#ff5500]/50 hover:text-[#ff5500] transition-colors cursor-default">
                               {tech}
                             </span>
                           ))}
@@ -428,7 +428,7 @@ const Projects = () => {
           })}
 
           {/* FINAL SLIDE: THE HACKER CTA */}
-          <div className="w-[100vw] h-[100dvh] flex flex-col items-center justify-center shrink-0 px-6 pt-32 md:pt-0 pb-24 relative bg-black/60 backdrop-blur-sm">
+          <div className="w-[100vw] h-[100dvh] flex flex-col items-center justify-center shrink-0 px-6 pt-24 pb-16 relative bg-black/60 backdrop-blur-sm">
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem]" />
             <div className="z-10 relative w-full max-w-5xl mx-auto flex flex-col items-center text-center">
               
