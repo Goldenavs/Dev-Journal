@@ -221,7 +221,7 @@ const Projects = () => {
 
             return (
               // FIX: Swapped mobile flex behavior to `justify-start` with a hard `pt-36` to guarantee it dodges the navbar
-              <div key={project.id} className="w-[100vw] h-[100dvh] flex flex-col justify-start md:justify-center shrink-0 px-6 md:px-20 pt-36 md:pt-0 pb-20 md:pb-0 relative">
+              <div key={project.id} className="w-[100vw] h-[100dvh] flex flex-col justify-start md:justify-center shrink-0 px-6 md:px-20 md:pt-0 pb-20 md:pb-0 relative">
                 
                 <div className="w-full max-w-[90rem] mx-auto z-10 flex flex-col md:flex-row items-center gap-12 md:gap-20">
                   
