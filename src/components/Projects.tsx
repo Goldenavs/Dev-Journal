@@ -178,6 +178,7 @@ const Projects = () => {
   return (
     <section ref={targetRef} className="relative bg-black/40 backdrop-blur-[4px]" style={{ height: `${totalSlides * 100}vh` }}>
       
+      {/* CSS FIX: @media (hover: hover) prevents mobile browsers from getting stuck in a hover state */}
       <style>{`
         @keyframes marquee {
           0% { transform: translateX(0); }
@@ -188,15 +189,17 @@ const Projects = () => {
           display: flex;
           width: max-content;
         }
-        .group:hover .animate-marquee {
-          animation-play-state: paused;
+        @media (hover: hover) {
+          .group:hover .animate-marquee {
+            animation-play-state: paused;
+          }
         }
       `}</style>
 
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
         
-        {/* Progress Bar */}
-        <div className="absolute bottom-8 md:bottom-10 left-6 md:left-12 flex items-center gap-6 z-50 mix-blend-difference pointer-events-none">
+        {/* Progress Bar - FIX: Dropped to bottom-4 on mobile so it clears the showcase images */}
+        <div className="absolute bottom-4 md:bottom-10 left-6 md:left-12 flex items-center gap-6 z-50 mix-blend-difference pointer-events-none">
            <span className="font-orbitron text-white text-xs uppercase tracking-[0.3em]">Projects</span>
            <div className="w-32 md:w-64 h-[1px] bg-white/20 relative">
               <motion.div 
@@ -217,7 +220,8 @@ const Projects = () => {
             const mobileMarqueeImages = project.hasVersions ? project.versions.mobile.images : project.images;
 
             return (
-              <div key={project.id} className="w-[100vw] h-screen flex flex-col justify-center shrink-0 px-6 md:px-20 pt-32 md:pt-32 pb-24 relative">
+              // FIX: Swapped mobile flex behavior to `justify-start` with a hard `pt-36` to guarantee it dodges the navbar
+              <div key={project.id} className="w-[100vw] h-[100dvh] flex flex-col justify-start md:justify-center shrink-0 px-6 md:px-20 pt-36 md:pt-0 pb-20 md:pb-0 relative">
                 
                 <div className="w-full max-w-[90rem] mx-auto z-10 flex flex-col md:flex-row items-center gap-12 md:gap-20">
                   
@@ -300,13 +304,14 @@ const Projects = () => {
                   </div>
                   
                   {/* RIGHT: Visuals & 3D Flipping Container */}
+                  {/* FIX: Reduced mobile height to h-[38vh] to prevent overlapping the progress bar */}
                   <div 
-                    className="w-full md:w-7/12 h-[45vh] md:h-[65vh] relative group overflow-hidden cursor-pointer md:cursor-auto mt-8 md:mt-0" 
+                    className="w-full md:w-7/12 h-[38vh] md:h-[65vh] relative group overflow-hidden cursor-pointer md:cursor-auto mt-6 md:mt-0" 
                     style={{ perspective: '1200px' }}
                     onClick={() => setTappedProject(tappedProject === project.id ? null : project.id)}
                   >
                     
-                    {/* Mobile Hint UX Component - FIX 1: Moved to top-4 */}
+                    {/* Mobile Hint UX Component */}
                     <div className={`absolute top-4 right-4 md:hidden z-40 bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-2 transition-opacity duration-300 pointer-events-none ${tappedProject === project.id ? 'opacity-0' : 'opacity-100'}`}>
                       <span className="relative flex h-2 w-2">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ff5500] opacity-75"></span>
@@ -324,7 +329,12 @@ const Projects = () => {
                       {/* FRONT FACE: Mobile Marquee */}
                       <div className="absolute inset-0 w-full h-full" style={{ backfaceVisibility: "hidden" }}>
                         <div className={`absolute inset-0 w-full flex items-center transition-all duration-700 ease-out z-0 [mask-image:linear-gradient(to_right,transparent_0%,black_15%,black_85%,transparent_100%)] ${tappedProject === project.id ? 'blur-[10px] opacity-20' : ''} md:group-hover:blur-[10px] md:group-hover:opacity-20`}>
-                          <div className="animate-marquee gap-6 pr-6 pl-6">
+                          
+                          {/* FIX: explicitly manage the play state inline based on tap status */}
+                          <div 
+                            className="animate-marquee gap-6 pr-6 pl-6"
+                            style={{ animationPlayState: tappedProject === project.id ? 'paused' : 'running' }}
+                          >
                             {[...mobileMarqueeImages, ...mobileMarqueeImages].map((img, i) => (
                               <div 
                                 key={i} 
@@ -418,11 +428,10 @@ const Projects = () => {
           })}
 
           {/* FINAL SLIDE: THE HACKER CTA */}
-          <div className="w-[100vw] h-screen flex flex-col items-center justify-center shrink-0 px-6 pt-32 md:pt-32 pb-24 relative bg-black/60 backdrop-blur-sm">
+          <div className="w-[100vw] h-[100dvh] flex flex-col items-center justify-center shrink-0 px-6 pt-32 md:pt-0 pb-24 relative bg-black/60 backdrop-blur-sm">
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem]" />
             <div className="z-10 relative w-full max-w-5xl mx-auto flex flex-col items-center text-center">
               
-              {/* FIX 2: Dropped text size to text-[8px] sm:text-[10px] and shortened string to prevent clipping */}
               <motion.div 
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
