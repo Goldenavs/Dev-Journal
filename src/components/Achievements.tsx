@@ -1,9 +1,8 @@
 // src/components/Achievements.tsx
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
-import { Trophy, MapPin, Calendar, Terminal, Crosshair, Award, ChevronUp, ChevronDown } from 'lucide-react';
+import { Trophy, MapPin, Calendar, Terminal, Crosshair, Award } from 'lucide-react';
 
-// Glitch Text Component
 const HackerText = ({ text, triggerOnHover = false }: { text: string, triggerOnHover?: boolean }) => {
   const [displayText, setDisplayText] = useState(triggerOnHover ? text : "");
   const [isHovered, setIsHovered] = useState(false);
@@ -102,12 +101,10 @@ const ACHIEVEMENTS = [
   }
 ];
 
-// --- UPGRADED CAROUSEL COMPONENT ---
 const ImageVault = ({ images }: { images: string[] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const trackpadRef = useRef<HTMLDivElement>(null);
   
-  // FIX: Touch state for mobile swipe detection
   const [touchStart, setTouchStart] = useState<number | null>(null);
 
   const hasMultipleImages = images.length > 1;
@@ -139,7 +136,6 @@ const ImageVault = ({ images }: { images: string[] }) => {
     return () => trackpad.removeEventListener('wheel', handleWheel);
   }, [images.length, hasMultipleImages]);
 
-  // FIX: Touch Handlers
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientX);
   };
@@ -150,8 +146,9 @@ const ImageVault = ({ images }: { images: string[] }) => {
     const distance = touchStart - touchEnd;
     const minSwipeDistance = 50;
 
-    if (distance > minSwipeDistance) nextImage(); // Swiped left
-    else if (distance < -minSwipeDistance) prevImage(); // Swiped right
+    // We only trigger swipe if it's a distinct drag, otherwise the onClick handles normal taps
+    if (distance > minSwipeDistance) nextImage(); 
+    else if (distance < -minSwipeDistance) prevImage(); 
     
     setTouchStart(null);
   };
@@ -159,8 +156,10 @@ const ImageVault = ({ images }: { images: string[] }) => {
   if (!images || images.length === 0) return null;
 
   return (
+    // FIX 3: Added cursor-pointer and onClick to make the whole pill cycle images seamlessly
     <div 
-      className="w-full h-full relative group overflow-hidden rounded-2xl md:rounded-[2rem] border border-white/10 shadow-2xl bg-black/50"
+      className="w-full h-full relative group overflow-hidden rounded-2xl md:rounded-[2rem] border border-white/10 shadow-2xl bg-black/50 cursor-pointer"
+      onClick={hasMultipleImages ? nextImage : undefined}
       onTouchStart={hasMultipleImages ? handleTouchStart : undefined}
       onTouchEnd={hasMultipleImages ? handleTouchEnd : undefined}
     >
@@ -179,19 +178,15 @@ const ImageVault = ({ images }: { images: string[] }) => {
         />
       </AnimatePresence>
 
+      {/* FIX 3: Simplified the indicator to a clean, non-interfering text badge */}
       {hasMultipleImages && (
         <div 
           ref={trackpadRef}
-          className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-30 bg-black/80 backdrop-blur-md border border-[#ff5500]/30 hover:border-[#ff5500] px-4 md:px-6 py-2 md:py-3 rounded-full flex items-center gap-3 md:gap-4 cursor-ns-resize shadow-[0_0_20px_rgba(0,0,0,0.8)] hover:shadow-[0_0_30px_rgba(255,85,0,0.4)] transition-all duration-300"
+          className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-30 bg-black/80 backdrop-blur-md border border-[#ff5500]/30 px-4 md:px-6 py-2 md:py-3 rounded-full flex items-center shadow-[0_0_20px_rgba(0,0,0,0.8)] transition-all duration-300 pointer-events-none"
         >
-          {/* FIX: Interactive buttons for tap usage */}
-          <div className="flex flex-col items-center gap-0.5 opacity-70">
-            <button onClick={prevImage} className="p-1 -m-1 active:scale-125 transition-transform"><ChevronUp className="w-3 h-3 text-[#ff5500]" /></button>
-            <button onClick={nextImage} className="p-1 -m-1 active:scale-125 transition-transform"><ChevronDown className="w-3 h-3 text-[#ff5500]" /></button>
-          </div>
-          <span className="font-orbitron text-[#ff5500] text-[9px] md:text-xs uppercase tracking-widest whitespace-nowrap select-none pointer-events-none">
-            <span className="hidden md:inline">Hover & Scroll</span>
-            <span className="md:hidden">Scroll / Tap</span>
+          <span className="font-orbitron text-[#ff5500] text-[9px] md:text-xs uppercase tracking-widest whitespace-nowrap select-none">
+            <span className="hidden md:inline">Scroll / Click</span>
+            <span className="md:hidden">Tap to Cycle</span>
             {' '}[{currentIndex + 1}/{images.length}]
           </span>
         </div>
@@ -227,11 +222,10 @@ const Achievements = () => {
         <motion.div style={{ x, width: `${totalSlides * 100}vw` }} className="flex flex-row-reverse h-full">
           
           {ACHIEVEMENTS.map((achievement) => (
-            // FIX: Shrunk the padding (pt-24 -> pt-20, pb-24 -> pb-16) to provide more working area on mobile
-            <div key={achievement.id} className="w-[100vw] h-[100dvh] flex flex-col justify-center shrink-0 px-6 md:px-20 pt-20 md:pt-32 pb-16 md:pb-24 relative">
+            // FIX 1: Swapped `h-[100dvh]` to `h-full` to prevent height-jumping during scrolling
+            <div key={achievement.id} className="w-[100vw] h-full flex flex-col justify-center shrink-0 px-6 md:px-20 pt-20 md:pt-32 pb-16 md:pb-24 relative">
               
-              {/* FIX: Tightened the gap on mobile (gap-12 -> gap-4) */}
-              <div className="w-full max-w-[90rem] mx-auto z-10 flex flex-col md:flex-row items-center gap-4 md:gap-20 h-full">
+              <div className="w-full max-w-[90rem] mx-auto z-10 flex flex-col md:flex-row items-center gap-4 md:gap-20 h-full min-h-0">
                 
                 <div className="w-full md:w-5/12 flex flex-col justify-center relative z-20 shrink-0">
                   
@@ -251,7 +245,6 @@ const Achievements = () => {
                     </span>
                   </div>
                   
-                  {/* FIX: Shrunk title size exclusively on mobile to stop it from pushing the image away */}
                   <h2 className="font-montserrat text-4xl sm:text-5xl md:text-8xl font-black uppercase tracking-tighter text-white mb-2 md:mb-6 leading-[0.85] drop-shadow-2xl hover:text-[#ff5500] hover:translate-x-4 transition-all duration-500 cursor-default">
                     {achievement.title}
                   </h2>
@@ -280,15 +273,14 @@ const Achievements = () => {
                     )}
                   </div>
                   
-                  {/* FIX: Reduced text size on mobile and applied a line-clamp-3 so extreme descriptions don't break the layout */}
                   <p className="text-neutral-400 text-xs sm:text-sm md:text-xl font-light tracking-wide border-l-2 border-[#ff5500] pl-3 md:pl-4 py-1 md:py-2 rounded-r-lg hover:border-l-4 md:hover:border-l-8 hover:pl-4 md:hover:pl-6 hover:text-white hover:bg-white/5 transition-all duration-300 cursor-default line-clamp-3 md:line-clamp-none">
                     {achievement.description}
                   </p>
                   
                 </div>
                 
-                {/* FIX: Flex-1 forces the image to absorb ONLY the remaining space, preventing it from overflowing downwards */}
-                <div className="w-full md:w-7/12 flex-1 min-h-[25vh] md:h-[65vh]">
+                {/* FIX 2: min-h-0 prevents the flexbox from forcefully overlapping the text when screen height shrinks */}
+                <div className="w-full md:w-7/12 flex-1 min-h-0 md:h-[65vh]">
                    <ImageVault images={achievement.images} />
                 </div>
 
